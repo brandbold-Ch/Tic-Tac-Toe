@@ -26,6 +26,7 @@ public class TCPServer extends Thread {
 
                 if (input.readLine().equals("getHostData")) {
                     Memory.outputStreamGuest = clientSocket.getOutputStream();
+                    System.out.println("pene");
                     out.println(Memory.toJSON());
 
                 } else {
