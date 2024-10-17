@@ -67,9 +67,9 @@ public class HostWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String urlBuild = String.format("src/frontend/assets/%s.png", symbolBox.getSelectedItem());
                 Memory.hostSymbol = new ImageIcon(urlBuild);
-                Memory.hostIP = getServerIP();
                 Memory.isServer = true;
                 Memory.isAsync = option.isSelected();
+                Memory.hostIP = getServerIP();
 
                 switch (symbolBox.getSelectedIndex()) {
                     case 0 -> Memory.guestSymbol = new ImageIcon("src/frontend/assets/X.png");

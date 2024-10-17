@@ -24,8 +24,6 @@ public class TCPServer extends Thread {
                 BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
-                System.out.println(input.readLine().equals("getHostData"));
-
                 if (input.readLine().equals("getHostData")) {
                     Memory.outputStreamGuest = clientSocket.getOutputStream();
                     out.println(Memory.toJSON());

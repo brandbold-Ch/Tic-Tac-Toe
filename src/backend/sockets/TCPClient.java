@@ -37,12 +37,12 @@ public class TCPClient extends Thread {
                     writer.println("getHostData");
 
                     Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
+                    System.out.println(reader.readLine());
                     Memory.guestSymbol = new ImageIcon(parsedData.guestSymbol);
                     Memory.hostSymbol = new ImageIcon(parsedData.hostSymbol);
                     Memory.turnOf = parsedData.turnOf;
                     Memory.configuredGuest = true;
                     Memory.guestFrame.setVisible(false);
-                    System.out.println(reader.readLine());
 
                     new BaseBoard();
                 } else {
