@@ -42,6 +42,7 @@ public class TCPClient extends Thread {
                     Memory.turnOf = parsedData.turnOf;
                     Memory.configuredGuest = true;
                     Memory.guestFrame.setVisible(false);
+                    System.out.println(reader.readLine());
 
                     new BaseBoard();
                 } else {

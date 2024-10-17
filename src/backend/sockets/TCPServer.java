@@ -24,6 +24,8 @@ public class TCPServer extends Thread {
                 BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
+                System.out.println(input.readLine().equals("getHostData"));
+
                 if (input.readLine().equals("getHostData")) {
                     Memory.outputStreamGuest = clientSocket.getOutputStream();
                     out.println(Memory.toJSON());
@@ -31,8 +33,8 @@ public class TCPServer extends Thread {
                 } else {
                     Responses parsedData = gson.fromJson(input.readLine(), Responses.class);
                     Memory.outputStreamHost = clientSocket.getOutputStream();
-                    Memory.turnOf = parsedData.turnOf;
                     Memory.symbolPosition = parsedData.symbolPosition;
+                    Memory.turnOf = parsedData.turnOf;
 
                     System.out.println(parsedData);
 
