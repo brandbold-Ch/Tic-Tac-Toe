@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-
 import backend.utils.Responses;
 import com.google.gson.Gson;
 
@@ -26,10 +25,10 @@ public class TCPServer extends Thread {
 
                 if (input.readLine().equals("getHostData")) {
                     Memory.outputStreamGuest = clientSocket.getOutputStream();
-                    System.out.println("pene");
                     out.println(Memory.toJSON());
 
                 } else {
+                    System.out.println("Entrando");
                     Responses parsedData = gson.fromJson(input.readLine(), Responses.class);
                     Memory.outputStreamHost = clientSocket.getOutputStream();
                     Memory.symbolPosition = parsedData.symbolPosition;
