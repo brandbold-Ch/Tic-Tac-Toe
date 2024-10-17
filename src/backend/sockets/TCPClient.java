@@ -17,7 +17,9 @@ public class TCPClient extends Thread {
     public TCPClient() {}
 
     public void sendMessage(String data) {
-        PrintWriter writer = new PrintWriter(Memory.outputStreamHost, true);
+        PrintWriter writer = new PrintWriter(
+                (Memory.isServer)?Memory.outputStreamHost:Memory.outputStreamGuest, true
+        );
         writer.println(data);
     }
 

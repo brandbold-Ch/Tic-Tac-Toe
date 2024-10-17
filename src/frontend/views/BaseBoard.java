@@ -102,10 +102,10 @@ public class BaseBoard extends JFrame {
 
     private void contextObserver() {
         if (Memory.turnOf.equals("host")) {
-            this.glassPane.setVisible(false);
+            this.glassPane.setVisible(true);
         }
         else if (Memory.turnOf.equals("guest")) {
-            this.glassPane.setVisible(true);
+            this.glassPane.setVisible(false);
         }
     }
 
