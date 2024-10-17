@@ -27,18 +27,36 @@ public class TCPServer extends Thread {
                 if (input.readLine().equals("getHostData")) {
                     Memory.outputStreamGuest = clientSocket.getOutputStream();
                     out.println(Memory.toJSON());
-                }
-                else {
+
+                } else {
                     Responses parsedData = gson.fromJson(input.readLine(), Responses.class);
                     Memory.outputStreamHost = clientSocket.getOutputStream();
                     Memory.turnOf = parsedData.turnOf;
                     Memory.symbolPosition = parsedData.symbolPosition;
 
+                    System.out.println(parsedData);
+
                     if (Memory.turnOf.equals("guest")) {
-                        out.println("");
+                        out = new PrintWriter(Memory.outputStreamGuest, true);
+                        out.println(
+                                "{\"symbolPosition\": \""
+                                        + Memory.symbolPosition
+                                        + "\", \"turnOf\": \""
+                                        + Memory.turnOf
+                                        + "\"}"
+                        );
+                        System.out.println("Le toca a Guest");
                     }
                     if (Memory.turnOf.equals("host")) {
-                        out.println("");
+                        out = new PrintWriter(Memory.outputStreamHost, true);
+                        out.println(
+                                "{\"symbolPosition\": \""
+                                        + Memory.symbolPosition
+                                        + "\", \"turnOf\": \""
+                                        + Memory.turnOf
+                                        + "\"}"
+                        );
+                        System.out.println("Le toca a Host");
                     }
                 }
             }

@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import backend.sockets.TCPClient;
 
 
 public class BaseBoard extends JFrame {
@@ -13,6 +14,7 @@ public class BaseBoard extends JFrame {
     public JLabel boardLabel;
     private byte[][] items = new byte[3][3];
     private JPanel glassPane;
+    private TCPClient tcpClient;
     private boolean a11Pressed = false;
     private boolean a12Pressed = false;
     private boolean a13Pressed = false;
@@ -39,6 +41,7 @@ public class BaseBoard extends JFrame {
         this.setResizable(false);
         this.setVisible(true);
         this.setLayout(null);
+        this.tcpClient = new TCPClient();
 
         this.glassPane = new JPanel() {
             @Override
@@ -149,6 +152,7 @@ public class BaseBoard extends JFrame {
                     }
                     a11Pressed = true;
                     items[0][0] = 1;
+                    tcpClient.sendMessage("Pene");
 
                     if (upperTriangular()) {
                         System.out.println("You Win");
