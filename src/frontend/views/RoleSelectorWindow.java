@@ -1,8 +1,5 @@
 package frontend.views;
 import backend.utils.Memory;
-import frontend.views.GuestWindow;
-import frontend.views.HostWindow;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

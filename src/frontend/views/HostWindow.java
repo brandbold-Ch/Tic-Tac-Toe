@@ -1,5 +1,6 @@
 package frontend.views;
 
+import backend.sockets.TCPClient;
 import backend.sockets.TCPServer;
 import backend.utils.Memory;
 
@@ -33,13 +34,18 @@ public class HostWindow extends JFrame {
         JLabel ipLabel = new JLabel("IP address:");
         JLabel portLabel = new JLabel("Port:");
         JLabel symbolLabel = new JLabel("Símbolo:");
+        JLabel modeLabel = new JLabel("Asíncrono:");
         JButton jButton = new JButton("OK");
+        JCheckBox option = new JCheckBox();
         JComboBox<String> symbolBox = new JComboBox<>(new String[]{"O", "X"});
 
         ipLabel.setBounds(0, 15, 100, 20);
         symbolLabel.setBounds(0, 40, 50, 30);
         symbolBox.setBounds(55, 40, 50, 30);
         message.setBounds(65, 0, 265, 30);
+        modeLabel.setBounds(167, 40, 120, 20);
+        option.setBounds(226, 36, 50, 30);
+        option.setBackground(Color.gray);
 
         portLabel.setBounds(200, 15, 70, 20);
         portField.setBounds(230, 15, 40, 20);
@@ -50,7 +56,6 @@ public class HostWindow extends JFrame {
         ipField.setText(this.getServerIP());
         ipField.setBackground(Color.gray);
         ipField.setEditable(false);
-        Memory.hostIP = this.getServerIP();
 
         containerIP.setLayout(null);
         containerIP.setBackground(Color.gray);
@@ -62,20 +67,19 @@ public class HostWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String urlBuild = String.format("src/frontend/assets/%s.png", symbolBox.getSelectedItem());
                 Memory.hostSymbol = new ImageIcon(urlBuild);
+                Memory.hostIP = getServerIP();
                 Memory.isServer = true;
+                Memory.isAsync = option.isSelected();
 
                 switch (symbolBox.getSelectedIndex()) {
-                    case 0 -> {
-                        Memory.guestSymbol = new ImageIcon("src/frontend/assets/X.png");
-                    }
-                    case 1 -> {
-                        Memory.guestSymbol = new ImageIcon("src/frontend/assets/O.png");
-                    }
+                    case 0 -> Memory.guestSymbol = new ImageIcon("src/frontend/assets/X.png");
+                    case 1 -> Memory.guestSymbol = new ImageIcon("src/frontend/assets/O.png");
                 }
-                new Thread(new TCPServer()).start();
-                new BaseBoard();
-
                 setVisible(false);
+
+                new Thread(new TCPServer()).start();
+                //new Thread(new TCPClient()).start();
+                new BaseBoard();
             }
         });
 
@@ -85,6 +89,8 @@ public class HostWindow extends JFrame {
         containerIP.add(portField);
         containerIP.add(symbolBox);
         containerIP.add(symbolLabel);
+        containerIP.add(modeLabel);
+        containerIP.add(option);
 
         this.add(containerIP);
         this.add(jButton);

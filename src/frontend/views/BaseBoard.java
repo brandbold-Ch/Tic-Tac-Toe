@@ -1,16 +1,36 @@
 package frontend.views;
 
 import backend.utils.Memory;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 
 public class BaseBoard extends JFrame {
 
     public JLabel boardLabel;
+    private byte[][] items = new byte[3][3];
+    private JPanel glassPane;
+    private boolean a11Pressed = false;
+    private boolean a12Pressed = false;
+    private boolean a13Pressed = false;
+    private boolean a21Pressed = false;
+    private boolean a22Pressed = false;
+    private boolean a23Pressed = false;
+    private boolean a31Pressed = false;
+    private boolean a32Pressed = false;
+    private boolean a33Pressed = false;
+    private final JLabel a11;
+    private final JLabel a12;
+    private final JLabel a13;
+    private final JLabel a21;
+    private final JLabel a22;
+    private final JLabel a23;
+    private final JLabel a31;
+    private final JLabel a32;
+    private final JLabel a33;
 
     public BaseBoard() {
         this.setSize(new Dimension(500, 500));
@@ -20,11 +40,50 @@ public class BaseBoard extends JFrame {
         this.setVisible(true);
         this.setLayout(null);
 
+        this.glassPane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.setColor(new Color(0, 0, 0, 0));
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
+        this.glassPane.setOpaque(false);
+        glassPane.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {}
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+        glassPane.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {}
+
+            @Override
+            public void mouseMoved(MouseEvent e) {}
+        });
+
+        this.a11 = new JLabel();
+        this.a12 = new JLabel();
+        this.a13 = new JLabel();
+        this.a21 = new JLabel();
+        this.a22 = new JLabel();
+        this.a23 = new JLabel();
+        this.a31 = new JLabel();
+        this.a32 = new JLabel();
+        this.a33 = new JLabel();
+
         this.boardLabel = new JLabel();
         this.boardLabel.setIcon(new ImageIcon("src/frontend/assets/board.png"));
         this.boardLabel.setBounds(95, 20, 300, 298);
 
         this.getContentPane().setBackground(Color.gray);
+        this.setGlassPane(this.glassPane);
         this.add(this.boardLabel);
         this.add(this.indexA11());
         this.add(this.indexA12());
@@ -35,10 +94,43 @@ public class BaseBoard extends JFrame {
         this.add(this.indexA31());
         this.add(this.indexA32());
         this.add(this.indexA33());
+        this.contextObserver();
+    }
+
+    private void contextObserver() {
+        if (Memory.turnOf.equals("host")) {
+            this.glassPane.setVisible(false);
+        }
+        else if (Memory.turnOf.equals("guest")) {
+            this.glassPane.setVisible(true);
+        }
+    }
+
+    private void clearArray () {
+        for (int i=0; i<3; i++) {
+            for (int j=0; j<3; j++) {
+                items[i][i] = 0;
+            }
+        }
+    }
+
+    public boolean upperTriangular() {
+        int counter = 0;
+        for (int i=0; i<3; i++) {
+            counter += items[i][i];
+        }
+        return (counter == 3);
+    }
+
+    public boolean lowerTriangular() {
+        int counter = 0;
+        for (int i=3; i>=0; i--) {
+            counter += items[i][i];
+        }
+        return (counter == 3);
     }
 
     public JLabel indexA11() {
-        JLabel a11 = new JLabel();
         a11.setBackground(null);
         a11.setBounds(100, 27, 85, 85);
 
@@ -49,10 +141,18 @@ public class BaseBoard extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (Memory.isServer) {
-                    a11.setIcon(Memory.hostSymbol);
-                } else {
-                    a11.setIcon(Memory.guestSymbol);
+                if (!a11Pressed) {
+                    if (Memory.isServer) {
+                        a11.setIcon(Memory.hostSymbol);
+                    } else {
+                        a11.setIcon(Memory.guestSymbol);
+                    }
+                    a11Pressed = true;
+                    items[0][0] = 1;
+
+                    if (upperTriangular()) {
+                        System.out.println("You Win");
+                    }
                 }
             }
 
@@ -75,21 +175,27 @@ public class BaseBoard extends JFrame {
     }
 
     public JLabel indexA12() {
-        JLabel a12 = new JLabel();
         a12.setBackground(null);
         a12.setBounds(200, 27, 85, 85);
 
         a12.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-            }
+            public void mouseClicked(MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (Memory.isServer) {
-                    a12.setIcon(Memory.hostSymbol);
-                } else {
-                    a12.setIcon(Memory.guestSymbol);
+                if (!a12Pressed) {
+                    if (Memory.isServer) {
+                        a12.setIcon(Memory.hostSymbol);
+                    } else {
+                        a12.setIcon(Memory.guestSymbol);
+                    }
+                    a12Pressed = true;
+                    items[0][1] = 1;
+
+                    if (upperTriangular()) {
+                        System.out.println("You Win");
+                    }
                 }
             }
 
@@ -112,7 +218,6 @@ public class BaseBoard extends JFrame {
     }
 
     public JLabel indexA13() {
-        JLabel a13 = new JLabel();
         a13.setBackground(null);
         a13.setBounds(300, 27, 85, 85);
 
@@ -123,10 +228,18 @@ public class BaseBoard extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (Memory.isServer) {
-                    a13.setIcon(Memory.hostSymbol);
-                } else {
-                    a13.setIcon(Memory.guestSymbol);
+                if (!a13Pressed) {
+                    if (Memory.isServer) {
+                        a13.setIcon(Memory.hostSymbol);
+                    } else {
+                        a13.setIcon(Memory.guestSymbol);
+                    }
+                    a13Pressed = true;
+                    items[0][2] = 1;
+
+                    if (upperTriangular()) {
+                        System.out.println("You Win");
+                    }
                 }
             }
 
@@ -149,7 +262,6 @@ public class BaseBoard extends JFrame {
     }
 
     public JLabel indexA21() {
-        JLabel a21 = new JLabel();
         a21.setBackground(null);
         a21.setBounds(100, 129, 85, 85);
 
@@ -160,11 +272,20 @@ public class BaseBoard extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (Memory.isServer) {
-                    a21.setIcon(Memory.hostSymbol);
-                } else {
-                    a21.setIcon(Memory.guestSymbol);
-                }            }
+                if (!a21Pressed) {
+                    if (Memory.isServer) {
+                        a21.setIcon(Memory.hostSymbol);
+                    } else {
+                        a21.setIcon(Memory.guestSymbol);
+                    }
+                    a21Pressed = true;
+                    items[1][0] = 1;
+
+                    if (upperTriangular()) {
+                        System.out.println("You Win");
+                    }
+                }
+            }
 
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -185,7 +306,6 @@ public class BaseBoard extends JFrame {
     }
 
     public JLabel indexA22() {
-        JLabel a22 = new JLabel();
         a22.setBackground(null);
         a22.setBounds(200, 129, 85, 85);
 
@@ -196,10 +316,18 @@ public class BaseBoard extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (Memory.isServer) {
-                    a22.setIcon(Memory.hostSymbol);
-                } else {
-                    a22.setIcon(Memory.guestSymbol);
+                if (!a22Pressed) {
+                    if (Memory.isServer) {
+                        a22.setIcon(Memory.hostSymbol);
+                    } else {
+                        a22.setIcon(Memory.guestSymbol);
+                    }
+                    a22Pressed = true;
+                    items[1][1] = 1;
+
+                    if (upperTriangular()) {
+                        System.out.println("You Win");
+                    }
                 }
             }
 
@@ -222,7 +350,6 @@ public class BaseBoard extends JFrame {
     }
 
     public JLabel indexA23() {
-        JLabel a23 = new JLabel();
         a23.setBackground(null);
         a23.setBounds(300, 129, 85, 85);
 
@@ -233,10 +360,18 @@ public class BaseBoard extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (Memory.isServer) {
-                    a23.setIcon(Memory.hostSymbol);
-                } else {
-                    a23.setIcon(Memory.guestSymbol);
+                if (!a23Pressed) {
+                    if (Memory.isServer) {
+                        a23.setIcon(Memory.hostSymbol);
+                    } else {
+                        a23.setIcon(Memory.guestSymbol);
+                    }
+                    a23Pressed = true;
+                    items[1][2] = 1;
+
+                    if (upperTriangular()) {
+                        System.out.println("You Win");
+                    }
                 }
             }
 
@@ -259,7 +394,6 @@ public class BaseBoard extends JFrame {
     }
 
     public JLabel indexA31() {
-        JLabel a31 = new JLabel();
         a31.setBackground(null);
         a31.setBounds(100, 232, 85, 82);
 
@@ -270,10 +404,18 @@ public class BaseBoard extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (Memory.isServer) {
-                    a31.setIcon(Memory.hostSymbol);
-                } else {
-                    a31.setIcon(Memory.guestSymbol);
+                if (!a31Pressed) {
+                    if (Memory.isServer) {
+                        a31.setIcon(Memory.hostSymbol);
+                    } else {
+                        a31.setIcon(Memory.guestSymbol);
+                    }
+                    a31Pressed = true;
+                    items[2][0] = 1;
+
+                    if (upperTriangular()) {
+                        System.out.println("You Win");
+                    }
                 }
             }
 
@@ -296,7 +438,6 @@ public class BaseBoard extends JFrame {
     }
 
     public JLabel indexA32() {
-        JLabel a32 = new JLabel();
         a32.setBackground(null);
         a32.setBounds(200, 232, 85, 82);
 
@@ -307,10 +448,18 @@ public class BaseBoard extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (Memory.isServer) {
-                    a32.setIcon(Memory.hostSymbol);
-                } else {
-                    a32.setIcon(Memory.guestSymbol);
+                if (!a32Pressed) {
+                    if (Memory.isServer) {
+                        a32.setIcon(Memory.hostSymbol);
+                    } else {
+                        a32.setIcon(Memory.guestSymbol);
+                    }
+                    a32Pressed = true;
+                    items[2][1] = 1;
+
+                    if (upperTriangular()) {
+                        System.out.println("You Win");
+                    }
                 }
             }
 
@@ -333,7 +482,6 @@ public class BaseBoard extends JFrame {
     }
 
     public JLabel indexA33() {
-        JLabel a33 = new JLabel();
         a33.setBackground(null);
         a33.setBounds(300, 232, 85, 82);
 
@@ -344,10 +492,18 @@ public class BaseBoard extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (Memory.isServer) {
-                    a33.setIcon(Memory.hostSymbol);
-                } else {
-                    a33.setIcon(Memory.guestSymbol);
+                if (!a33Pressed) {
+                    if (Memory.isServer) {
+                        a33.setIcon(Memory.hostSymbol);
+                    } else {
+                        a33.setIcon(Memory.guestSymbol);
+                    }
+                    a33Pressed = true;
+                    items[2][2] = 1;
+
+                    if (upperTriangular()) {
+                        System.out.println("You Win");
+                    }
                 }
             }
 
