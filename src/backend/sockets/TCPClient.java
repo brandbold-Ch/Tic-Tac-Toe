@@ -13,17 +13,8 @@ public class TCPClient extends Thread {
 
     private InputStream inputStream;
     private OutputStream outputStream;
-    private Socket socket;
 
-    public TCPClient() {
-        try {
-            socket = new Socket(Memory.hostIP, Memory.hostPort);
-            this.inputStream = socket.getInputStream();
-            this.outputStream = socket.getOutputStream();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    public TCPClient() {}
 
     public void sendMessage(String data) {
         PrintWriter writer = new PrintWriter(Memory.outputStreamHost, true);
@@ -32,7 +23,9 @@ public class TCPClient extends Thread {
 
     @Override
     public void run() {
-        try {
+        try (Socket socket = new Socket(Memory.hostIP, Memory.hostPort)) {
+            this.inputStream = socket.getInputStream();
+            this.outputStream = socket.getOutputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(this.inputStream));
 
             while (true) {
