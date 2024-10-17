@@ -28,16 +28,21 @@ public class TCPClient extends Thread {
         try (Socket socket = new Socket(Memory.hostIP, Memory.hostPort)) {
             this.inputStream = socket.getInputStream();
             this.outputStream = socket.getOutputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(this.inputStream));
 
             while (true) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(this.inputStream));
+
+                System.out.println(reader.readLine());
+
                 if (!Memory.configuredGuest) {
+                    System.out.println("Guest no configurado");
                     Gson gson = new Gson();
                     PrintWriter writer = new PrintWriter(this.outputStream, true);
                     writer.println("getHostData");
 
                     Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
-                    System.out.println(reader.readLine());
+                    System.out.println(parsedData.guestSymbol);
+
                     Memory.guestSymbol = new ImageIcon(parsedData.guestSymbol);
                     Memory.hostSymbol = new ImageIcon(parsedData.hostSymbol);
                     Memory.turnOf = parsedData.turnOf;
@@ -45,8 +50,6 @@ public class TCPClient extends Thread {
                     Memory.guestFrame.setVisible(false);
 
                     new BaseBoard();
-                } else {
-                    System.out.println(reader.readLine());
                 }
             }
 
