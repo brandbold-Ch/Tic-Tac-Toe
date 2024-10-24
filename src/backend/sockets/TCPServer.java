@@ -62,6 +62,7 @@ class ClientHandler extends Thread {
                 Memory.turnOf = parsedData.turnOf;
 
                 if (Memory.turnOf.equals("guest")) {
+                    System.out.println("Turno de invitado");
                     out = new PrintWriter(Memory.outputStreamGuest, true);
                     out.println(
                             "{\"symbolPosition\": \""
@@ -70,6 +71,7 @@ class ClientHandler extends Thread {
                                     + Memory.turnOf
                                     + "\"}"
                     );
+                    System.out.println("Enviado");
                 }
                 else if (Memory.turnOf.equals("host")) {
                     out = new PrintWriter(Memory.outputStreamHost, true);

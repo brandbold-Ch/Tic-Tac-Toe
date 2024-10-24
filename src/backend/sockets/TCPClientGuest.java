@@ -13,8 +13,23 @@ public class TCPClientGuest extends Thread {
 
     public TCPClientGuest() {}
 
-    @Override
-    public void run() {
+    public void sendMessage(String symbolPosition, String turnOf) {
+        try (Socket socket = new Socket(Memory.hostIP, Memory.hostPort)) {
+            OutputStream outputStream = socket.getOutputStream();
+            PrintWriter writer = new PrintWriter(outputStream, true);
+            writer.println(
+                    "{\"symbolPosition\": \""
+                            + symbolPosition
+                            + "\", \"turnOf\": \""
+                            + turnOf
+                            + "\"}"
+            );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void serverHandler() {
         try (Socket socket = new Socket(Memory.hostIP, Memory.hostPort)) {
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
@@ -39,10 +54,16 @@ public class TCPClientGuest extends Thread {
                 Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
                 Memory.symbolPosition = parsedData.symbolPosition;
                 Memory.turnOf = parsedData.turnOf;
+                System.out.println("Datos recibidos del server");
             }
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public void run() {
+        serverHandler();
     }
 }
