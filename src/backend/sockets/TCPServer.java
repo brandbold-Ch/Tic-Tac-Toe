@@ -71,7 +71,7 @@ class ClientHandler extends Thread {
                                     + "\"}"
                     );
                 }
-                if (Memory.turnOf.equals("host")) {
+                else if (Memory.turnOf.equals("host")) {
                     out = new PrintWriter(Memory.outputStreamHost, true);
                     out.println(
                             "{\"symbolPosition\": \""
