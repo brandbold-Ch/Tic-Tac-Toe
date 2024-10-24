@@ -57,7 +57,6 @@ public class GuestWindow extends JFrame {
                 Memory.hostPort = Integer.parseInt(portField.getText());
                 Memory.guestFrame = getObject();
                 synchronizeLabel.setVisible(true);
-                System.out.println(Memory.guestKey);
 
                 new Thread(new TCPClientGuest()).start();
             }
