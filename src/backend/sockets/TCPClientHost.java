@@ -3,9 +3,11 @@ package backend.sockets;
 import backend.utils.Memory;
 import backend.utils.Responses;
 import com.google.gson.Gson;
+import frontend.views.BaseBoard;
+
+import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
-
 
 public class TCPClientHost extends Thread {
 
@@ -29,19 +31,6 @@ public class TCPClientHost extends Thread {
 
     @Override
     public void run() {
-        try (Socket socket = new Socket(Memory.hostIP, Memory.hostPort)) {
-            InputStream inputStream = socket.getInputStream();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            Gson gson = new Gson();
-
-            Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
-            Memory.symbolPosition = parsedData.symbolPosition;
-            Memory.turnOf = parsedData.turnOf;
-            System.out.println("Datos recibidos del server");
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 }
