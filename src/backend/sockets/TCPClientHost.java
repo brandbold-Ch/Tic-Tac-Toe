@@ -32,10 +32,8 @@ public class TCPClientHost extends Thread {
     public void serverHandler() {
         try (Socket socket = new Socket(Memory.hostIP, Memory.hostPort)) {
             InputStream inputStream = socket.getInputStream();
-            OutputStream outputStream = socket.getOutputStream();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            PrintWriter writer = new PrintWriter(outputStream, true);
             Gson gson = new Gson();
 
             Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
