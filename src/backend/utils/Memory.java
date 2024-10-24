@@ -20,7 +20,7 @@ public class Memory {
     public static ImageIcon hostSymbol = null;
     public static ImageIcon guestSymbol = null;
 
-    public static String turnOf = null;
+    public static String turnOf = "host";
     public static boolean isAsync = false;
 
     public static OutputStream outputStreamGuest = null;
