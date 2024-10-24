@@ -33,6 +33,8 @@ public class Memory {
                 + guestSymbol
                 + "\", \"turnOf\": \""
                 + turnOf
+                + "\", \"isAsync\": \""
+                + isAsync
                 + "\"}";
     }
 }

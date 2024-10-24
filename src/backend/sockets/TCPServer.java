@@ -13,55 +13,84 @@ import com.google.gson.Gson;
 
 public class TCPServer extends Thread {
 
+    public TCPServer() {}
+
     @Override
     public void run() {
-        try (ServerSocket serverSocket = new ServerSocket(Memory.hostPort)) {
-            while (true) {
-                Socket clientSocket = serverSocket.accept();
-                Gson gson = new Gson();
+        try (ServerSocket serverSocket = new ServerSocket(Memory.hostPort)){
+            if (!Memory.isAsync) {
+                while (true) {
+                    new ClientHandler(serverSocket.accept()).dataHandler();
+                }
 
-                BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-
-                if (input.readLine().equals("getHostData")) {
-                    Memory.outputStreamGuest = clientSocket.getOutputStream();
-                    out.println(Memory.toJSON());
-
-                } else {
-                    System.out.println("Entrando");
-                    Responses parsedData = gson.fromJson(input.readLine(), Responses.class);
-                    Memory.outputStreamHost = clientSocket.getOutputStream();
-                    Memory.symbolPosition = parsedData.symbolPosition;
-                    Memory.turnOf = parsedData.turnOf;
-
-                    System.out.println(parsedData);
-
-                    if (Memory.turnOf.equals("guest")) {
-                        out = new PrintWriter(Memory.outputStreamGuest, true);
-                        out.println(
-                                "{\"symbolPosition\": \""
-                                        + Memory.symbolPosition
-                                        + "\", \"turnOf\": \""
-                                        + Memory.turnOf
-                                        + "\"}"
-                        );
-                        System.out.println("Le toca a Guest");
-                    }
-                    if (Memory.turnOf.equals("host")) {
-                        out = new PrintWriter(Memory.outputStreamHost, true);
-                        out.println(
-                                "{\"symbolPosition\": \""
-                                        + Memory.symbolPosition
-                                        + "\", \"turnOf\": \""
-                                        + Memory.turnOf
-                                        + "\"}"
-                        );
-                        System.out.println("Le toca a Host");
-                    }
+            } else {
+                while (true) {
+                    new ClientHandler(serverSocket.accept()).start();
                 }
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        } finally {
+            System.out.println("Running");
         }
+    }
+}
+
+class ClientHandler extends Thread {
+
+    Socket clientSocket;
+
+    public ClientHandler(Socket socket) {
+        this.clientSocket = socket;
+    }
+
+    public void dataHandler() {
+        try {
+            Gson gson = new Gson();
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            String clientMessage = in.readLine();
+
+            if (clientMessage.equals("getHostData")) {
+                Memory.outputStreamGuest = clientSocket.getOutputStream();
+                out.println(Memory.toJSON());
+
+            } else {
+                Responses parsedData = gson.fromJson(clientMessage, Responses.class);
+                Memory.outputStreamHost = clientSocket.getOutputStream();
+                Memory.symbolPosition = parsedData.symbolPosition;
+                Memory.turnOf = parsedData.turnOf;
+
+                if (Memory.turnOf.equals("guest")) {
+                    out = new PrintWriter(Memory.outputStreamGuest, true);
+                    out.println(
+                            "{\"symbolPosition\": \""
+                                    + Memory.symbolPosition
+                                    + "\", \"turnOf\": \""
+                                    + Memory.turnOf
+                                    + "\"}"
+                    );
+                }
+                if (Memory.turnOf.equals("host")) {
+                    out = new PrintWriter(Memory.outputStreamHost, true);
+                    out.println(
+                            "{\"symbolPosition\": \""
+                                    + Memory.symbolPosition
+                                    + "\", \"turnOf\": \""
+                                    + Memory.turnOf
+                                    + "\"}"
+                    );
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println("Server listening");
+        }
+    }
+
+    @Override
+    public void run() {
+        dataHandler();
     }
 }

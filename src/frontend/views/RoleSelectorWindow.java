@@ -25,7 +25,7 @@ public class RoleSelectorWindow extends JFrame {
 
     private void setTitleGame() {
         JLabel image = new JLabel();
-        JLabel title = new JLabel("Tic * Tac * Toe");
+        JLabel title = new JLabel("\uD835\uDC7B\uD835\uDC8A\uD835\uDC84 * \uD835\uDC7B\uD835\uDC82\uD835\uDC84 * \uD835\uDC7B\uD835\uDC90\uD835\uDC86");
 
         image.setIcon(new ImageIcon("src/frontend/assets/logo.png"));
 
@@ -93,8 +93,12 @@ public class RoleSelectorWindow extends JFrame {
                     JOptionPane.showMessageDialog(containerButton, "Debes elegir una opción");
                 }
                 else {
-                    if (hostType.isSelected()) {new HostWindow();}
-                    else if (guestType.isSelected()) {new GuestWindow();}
+                    if (hostType.isSelected()) {
+                        new HostWindow();
+                    }
+                    else if (guestType.isSelected()) {
+                        new GuestWindow();
+                    }
                     setVisible(false);
                 }
             }

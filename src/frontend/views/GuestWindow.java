@@ -1,8 +1,7 @@
 package frontend.views;
 
-import backend.sockets.TCPClient;
+import backend.sockets.TCPClientGuest;
 import backend.utils.Memory;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -59,7 +58,7 @@ public class GuestWindow extends JFrame {
                 Memory.guestFrame = getObject();
                 synchronizeLabel.setVisible(true);
 
-                new Thread(new TCPClient()).start();
+                new Thread(new TCPClientGuest()).start();
             }
         });
 

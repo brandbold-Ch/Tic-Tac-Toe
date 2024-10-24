@@ -12,7 +12,7 @@ public class Host extends Thread {
         Thread thread2 = new Thread(new Guest());
 
         thread1.start();
-        //thread2.start();
+        thread2.start();
     }
 }
 
