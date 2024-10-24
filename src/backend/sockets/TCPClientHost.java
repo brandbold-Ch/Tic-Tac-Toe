@@ -3,11 +3,9 @@ package backend.sockets;
 import backend.utils.Memory;
 import backend.utils.Responses;
 import com.google.gson.Gson;
-import frontend.views.BaseBoard;
-
-import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
+
 
 public class TCPClientHost extends Thread {
 
@@ -29,7 +27,8 @@ public class TCPClientHost extends Thread {
         }
     }
 
-    public void serverHandler() {
+    @Override
+    public void run() {
         try (Socket socket = new Socket(Memory.hostIP, Memory.hostPort)) {
             InputStream inputStream = socket.getInputStream();
 
@@ -44,10 +43,5 @@ public class TCPClientHost extends Thread {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    @Override
-    public void run() {
-        serverHandler();
     }
 }

@@ -29,7 +29,8 @@ public class TCPClientGuest extends Thread {
         }
     }
 
-    public void serverHandler() {
+    @Override
+    public void run() {
         try (Socket socket = new Socket(Memory.hostIP, Memory.hostPort)) {
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
@@ -60,10 +61,5 @@ public class TCPClientGuest extends Thread {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    @Override
-    public void run() {
-        serverHandler();
     }
 }
