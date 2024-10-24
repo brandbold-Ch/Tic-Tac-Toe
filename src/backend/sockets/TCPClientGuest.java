@@ -26,7 +26,6 @@ public class TCPClientGuest extends Thread {
             if (!Memory.configuredGuest) {
                 writer.println("getHostData");
                 Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
-                System.out.println(parsedData.hostSymbol);
 
                 Memory.guestSymbol = new ImageIcon(parsedData.guestSymbol);
                 Memory.hostSymbol = new ImageIcon(parsedData.hostSymbol);
@@ -40,6 +39,7 @@ public class TCPClientGuest extends Thread {
                 Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
                 Memory.symbolPosition = parsedData.symbolPosition;
                 Memory.turnOf = parsedData.turnOf;
+                System.out.println(parsedData.turnOf);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
