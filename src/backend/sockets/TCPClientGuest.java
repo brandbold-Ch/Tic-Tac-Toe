@@ -15,35 +15,37 @@ public class TCPClientGuest extends Thread {
 
     @Override
     public void run() {
-        try (Socket socket = new Socket(Memory.hostIP, Memory.hostPort)) {
-            InputStream inputStream = socket.getInputStream();
-            OutputStream outputStream = socket.getOutputStream();
+        while (true) {
+            try (Socket socket = new Socket(Memory.hostIP, Memory.hostPort)) {
+                InputStream inputStream = socket.getInputStream();
+                OutputStream outputStream = socket.getOutputStream();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            PrintWriter writer = new PrintWriter(outputStream, true);
-            String serverMessage = reader.readLine();
-            Gson gson = new Gson();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                PrintWriter writer = new PrintWriter(outputStream, true);
+                String serverMessage = reader.readLine();
+                Gson gson = new Gson();
 
-            if (!Memory.configuredGuest) {
-                writer.println("getHostData");
-                Responses parsedData = gson.fromJson(serverMessage, Responses.class);
+                if (!Memory.configuredGuest) {
+                    writer.println("getHostData");
+                    Responses parsedData = gson.fromJson(serverMessage, Responses.class);
 
-                Memory.guestSymbol = new ImageIcon(parsedData.guestSymbol);
-                Memory.hostSymbol = new ImageIcon(parsedData.hostSymbol);
-                Memory.turnOf = parsedData.turnOf;
-                Memory.configuredGuest = true;
-                Memory.guestFrame.setVisible(false);
+                    Memory.guestSymbol = new ImageIcon(parsedData.guestSymbol);
+                    Memory.hostSymbol = new ImageIcon(parsedData.hostSymbol);
+                    Memory.turnOf = parsedData.turnOf;
+                    Memory.configuredGuest = true;
+                    Memory.guestFrame.setVisible(false);
 
-                new BaseBoard();
+                    new BaseBoard();
 
-            } else {
-                System.out.println(serverMessage);
-                Responses parsedData = gson.fromJson(serverMessage, Responses.class);
-                Memory.symbolPosition = parsedData.symbolPosition;
-                Memory.turnOf = parsedData.turnOf;
+                } else {
+                    System.out.println(serverMessage);
+                    Responses parsedData = gson.fromJson(serverMessage, Responses.class);
+                    Memory.symbolPosition = parsedData.symbolPosition;
+                    Memory.turnOf = parsedData.turnOf;
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         }
     }
 }
