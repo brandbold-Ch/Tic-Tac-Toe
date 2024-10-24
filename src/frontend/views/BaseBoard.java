@@ -1,5 +1,6 @@
 package frontend.views;
 
+import backend.sockets.TCPClientHost;
 import backend.utils.Memory;
 import javax.swing.*;
 import java.awt.*;
@@ -154,6 +155,7 @@ public class BaseBoard extends JFrame {
                 if (!a11Pressed) {
                     if (Memory.isServer) {
                         a11.setIcon(Memory.hostSymbol);
+                        new TCPClientHost().sendMessage("a11", "guest");
                     } else {
                         a11.setIcon(Memory.guestSymbol);
                     }

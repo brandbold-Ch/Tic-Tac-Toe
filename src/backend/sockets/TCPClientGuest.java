@@ -26,7 +26,7 @@ public class TCPClientGuest extends Thread {
             if (!Memory.configuredGuest) {
                 writer.println("getHostData");
                 Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
-                System.out.println(parsedData.turnOf);
+                System.out.println(reader.readLine());
 
                 Memory.guestSymbol = new ImageIcon(parsedData.guestSymbol);
                 Memory.hostSymbol = new ImageIcon(parsedData.hostSymbol);
