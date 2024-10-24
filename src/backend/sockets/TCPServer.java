@@ -54,6 +54,7 @@ class ClientHandler extends Thread {
             if (clientMessage.equals("getHostData")) {
                 Memory.outputStreamGuest = clientSocket.getOutputStream();
                 out.println(Memory.toJSON());
+                System.out.println(Memory.toJSON());
 
             } else {
                 Responses parsedData = gson.fromJson(clientMessage, Responses.class);
