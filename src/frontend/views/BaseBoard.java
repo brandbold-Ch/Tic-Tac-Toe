@@ -98,12 +98,22 @@ public class BaseBoard extends JFrame {
     }
 
     private void contextObserver() {
-        if (Memory.turnOf.equals("host")) {
-            this.glassPane.setVisible(false);
+        if (Memory.isServer) {
+            if (Memory.turnOf.equals("host")) {
+                this.glassPane.setVisible(false);
+            }
+            else if (Memory.turnOf.equals("guest")) {
+                this.glassPane.setVisible(true);
+            }
+        } else {
+            if (Memory.turnOf.equals("host")) {
+                this.glassPane.setVisible(true);
+            }
+            else if (Memory.turnOf.equals("guest")) {
+                this.glassPane.setVisible(false);
+            }
         }
-        else if (Memory.turnOf.equals("guest")) {
-            this.glassPane.setVisible(true);
-        }
+
     }
 
     private void clearArray () {
