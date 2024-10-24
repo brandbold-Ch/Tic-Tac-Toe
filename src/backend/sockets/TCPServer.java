@@ -54,7 +54,6 @@ class ClientHandler extends Thread {
             if (clientMessage.equals("getHostData")) {
                 Memory.outputStreamGuest = clientSocket.getOutputStream();
                 out.println(Memory.toJSON());
-                System.out.println(clientMessage);
 
             } else {
                 Responses parsedData = gson.fromJson(clientMessage, Responses.class);
@@ -63,7 +62,6 @@ class ClientHandler extends Thread {
                 Memory.turnOf = parsedData.turnOf;
 
                 if (Memory.turnOf.equals("guest")) {
-                    System.out.println("Turno de invitado");
                     out = new PrintWriter(Memory.outputStreamGuest, true);
                     out.println(
                             "{\"symbolPosition\": \""
@@ -72,7 +70,7 @@ class ClientHandler extends Thread {
                                     + Memory.turnOf
                                     + "\"}"
                     );
-                    System.out.println("Enviado");
+                    System.out.println("Mensaje enviado");
                 }
                 else if (Memory.turnOf.equals("host")) {
                     out = new PrintWriter(Memory.outputStreamHost, true);
