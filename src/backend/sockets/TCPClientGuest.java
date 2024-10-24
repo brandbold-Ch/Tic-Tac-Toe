@@ -11,7 +11,7 @@ import java.net.Socket;
 
 public class TCPClientGuest extends Thread {
 
-    public TCPClientGuest(){}
+    public TCPClientGuest() {}
 
     @Override
     public void run() {
@@ -26,7 +26,6 @@ public class TCPClientGuest extends Thread {
             if (!Memory.configuredGuest) {
                 writer.println("getHostData");
                 Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
-                System.out.println(reader.readLine());
 
                 Memory.guestSymbol = new ImageIcon(parsedData.guestSymbol);
                 Memory.hostSymbol = new ImageIcon(parsedData.hostSymbol);
@@ -35,6 +34,11 @@ public class TCPClientGuest extends Thread {
                 Memory.guestFrame.setVisible(false);
 
                 new BaseBoard();
+
+            } else {
+                Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
+                Memory.symbolPosition = parsedData.symbolPosition;
+                Memory.turnOf = parsedData.turnOf;
             }
 
         } catch (IOException e) {
