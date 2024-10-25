@@ -42,7 +42,6 @@ public class TCPClientHost extends Thread {
                 Memory.symbolPosition = parsedData.symbolPosition;
                 Memory.turnOf = parsedData.turnOf;
                 Memory.baseBoard.onEventDispatcher();
-                System.out.println(Memory.turnOf);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
