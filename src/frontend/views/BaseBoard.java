@@ -109,7 +109,6 @@ public class BaseBoard extends JFrame {
                 this.glassPane.setVisible(true);
             }
         } else {
-            System.out.println(Memory.turnOf);
             if (Memory.turnOf.equals("host")) {
                 this.glassPane.setVisible(true);
             }
@@ -117,7 +116,6 @@ public class BaseBoard extends JFrame {
                 this.glassPane.setVisible(false);
             }
         }
-
     }
 
     private void clearArray () {
@@ -158,9 +156,11 @@ public class BaseBoard extends JFrame {
                 if (!a11Pressed) {
                     if (Memory.isServer) {
                         a11.setIcon(Memory.hostSymbol);
+                        glassPane.setVisible(true);
                         new TCPClientHost().sendMessage("a11", "guest");
                     } else {
                         a11.setIcon(Memory.guestSymbol);
+                        new TCPClientHost().sendMessage("a11", "host");
                     }
                     a11Pressed = true;
                     items[0][0] = 1;
