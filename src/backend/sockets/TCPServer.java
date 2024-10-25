@@ -70,7 +70,7 @@ class ClientHandler extends Thread {
                                     + Memory.turnOf
                                     + "\"}"
                     );
-                    System.out.println("Datos enviado");
+                    System.out.println("Datos enviados");
                 }
                 else if (Memory.turnOf.equals("host")) {
                     out = new PrintWriter(Memory.outputStreamHost.getOutputStream(), true);

@@ -35,7 +35,9 @@ public class TCPClientGuest extends Thread {
 
                 new BaseBoard();
 
-            } else {
+            }
+
+            while (true) {
                 Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
                 Memory.symbolPosition = parsedData.symbolPosition;
                 Memory.turnOf = parsedData.turnOf;
