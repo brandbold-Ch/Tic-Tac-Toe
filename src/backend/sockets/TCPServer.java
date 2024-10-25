@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import backend.utils.Responses;
 import com.google.gson.Gson;
 
 
@@ -55,7 +56,10 @@ class ClientHandler extends Thread {
                 out.println(Memory.toJSON());
 
             } else {
+                Responses parsedData = gson.fromJson(clientMessage, Responses.class);
                 Memory.outputStreamHost = clientSocket;
+                Memory.symbolPosition = parsedData.symbolPosition;
+                Memory.turnOf = parsedData.turnOf;
 
                 if (Memory.turnOf.equals("guest")) {
                     out = new PrintWriter(Memory.outputStreamGuest.getOutputStream(), true);
