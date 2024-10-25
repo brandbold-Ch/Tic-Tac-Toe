@@ -1,5 +1,6 @@
 package frontend.views;
 
+import backend.sockets.TCPClientGuest;
 import backend.sockets.TCPClientHost;
 import backend.utils.Memory;
 import javax.swing.*;
@@ -160,7 +161,8 @@ public class BaseBoard extends JFrame {
                         new TCPClientHost().sendMessage("a11", "guest");
                     } else {
                         a11.setIcon(Memory.guestSymbol);
-                        new TCPClientHost().sendMessage("a11", "host");
+                        glassPane.setVisible(true);
+                        new TCPClientGuest().sendMessage("a11", "host");
                     }
                     a11Pressed = true;
                     items[0][0] = 1;

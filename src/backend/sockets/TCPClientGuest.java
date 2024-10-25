@@ -13,6 +13,22 @@ public class TCPClientGuest extends Thread {
 
     public TCPClientGuest() {}
 
+    public void sendMessage(String symbolPosition, String turnOf) {
+        try (Socket socket = new Socket(Memory.hostIP, Memory.hostPort)) {
+            OutputStream outputStream = socket.getOutputStream();
+            PrintWriter writer = new PrintWriter(outputStream, true);
+            writer.println(
+                    "{\"symbolPosition\": \""
+                            + symbolPosition
+                            + "\", \"turnOf\": \""
+                            + turnOf
+                            + "\"}"
+            );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void run() {
         try (Socket socket = new Socket(Memory.hostIP, Memory.hostPort)) {

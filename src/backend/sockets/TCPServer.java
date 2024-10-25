@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import backend.utils.Responses;
 import com.google.gson.Gson;
 
 
@@ -56,31 +55,15 @@ class ClientHandler extends Thread {
                 out.println(Memory.toJSON());
 
             } else {
-                Responses parsedData = gson.fromJson(clientMessage, Responses.class);
                 Memory.outputStreamHost = clientSocket;
-                Memory.symbolPosition = parsedData.symbolPosition;
-                Memory.turnOf = parsedData.turnOf;
 
                 if (Memory.turnOf.equals("guest")) {
                     out = new PrintWriter(Memory.outputStreamGuest.getOutputStream(), true);
-                    out.println(
-                            "{\"symbolPosition\": \""
-                                    + Memory.symbolPosition
-                                    + "\", \"turnOf\": \""
-                                    + Memory.turnOf
-                                    + "\"}"
-                    );
-                    System.out.println("Datos enviados");
+                    out.println(clientMessage);
                 }
                 else if (Memory.turnOf.equals("host")) {
                     out = new PrintWriter(Memory.outputStreamHost.getOutputStream(), true);
-                    out.println(
-                            "{\"symbolPosition\": \""
-                                    + Memory.symbolPosition
-                                    + "\", \"turnOf\": \""
-                                    + Memory.turnOf
-                                    + "\"}"
-                    );
+                    out.println(clientMessage);
                 }
             }
         } catch (IOException e) {
