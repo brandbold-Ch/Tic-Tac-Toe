@@ -3,6 +3,7 @@ package backend.utils;
 import frontend.views.GuestWindow;
 import javax.swing.ImageIcon;
 import java.io.OutputStream;
+import java.net.Socket;
 
 public class Memory {
 
@@ -23,8 +24,8 @@ public class Memory {
     public static String turnOf = "host";
     public static boolean isAsync = false;
 
-    public static OutputStream outputStreamGuest = null;
-    public static OutputStream outputStreamHost = null;
+    public static Socket outputStreamGuest = null;
+    public static Socket outputStreamHost = null;
 
     public static String toJSON() {
         return "{\"hostSymbol\": \""

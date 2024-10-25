@@ -52,17 +52,17 @@ class ClientHandler extends Thread {
             String clientMessage = in.readLine();
 
             if (clientMessage.equals("getHostData")) {
-                Memory.outputStreamGuest = clientSocket.getOutputStream();
+                Memory.outputStreamGuest = clientSocket;
                 out.println(Memory.toJSON());
 
             } else {
                 Responses parsedData = gson.fromJson(clientMessage, Responses.class);
-                Memory.outputStreamHost = clientSocket.getOutputStream();
+                Memory.outputStreamHost = clientSocket;
                 Memory.symbolPosition = parsedData.symbolPosition;
                 Memory.turnOf = parsedData.turnOf;
 
                 if (Memory.turnOf.equals("guest")) {
-                    out = new PrintWriter(Memory.outputStreamGuest, true);
+                    out = new PrintWriter(Memory.outputStreamGuest.getOutputStream(), true);
                     out.println(
                             "{\"symbolPosition\": \""
                                     + Memory.symbolPosition
@@ -70,10 +70,10 @@ class ClientHandler extends Thread {
                                     + Memory.turnOf
                                     + "\"}"
                     );
-                    System.out.println("Datos enviados");
+                    System.out.println("Datos enviado");
                 }
                 else if (Memory.turnOf.equals("host")) {
-                    out = new PrintWriter(Memory.outputStreamHost, true);
+                    out = new PrintWriter(Memory.outputStreamHost.getOutputStream(), true);
                     out.println(
                             "{\"symbolPosition\": \""
                                     + Memory.symbolPosition
