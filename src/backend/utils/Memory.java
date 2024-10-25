@@ -1,5 +1,6 @@
 package backend.utils;
 
+import frontend.views.BaseBoard;
 import frontend.views.GuestWindow;
 import javax.swing.ImageIcon;
 import java.io.OutputStream;
@@ -26,6 +27,8 @@ public class Memory {
 
     public static Socket outputStreamGuest = null;
     public static Socket outputStreamHost = null;
+
+    public static BaseBoard baseBoard = null;
 
     public static String toJSON() {
         return "{\"hostSymbol\": \""

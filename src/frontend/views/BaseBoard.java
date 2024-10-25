@@ -95,10 +95,12 @@ public class BaseBoard extends JFrame {
         this.add(this.indexA31());
         this.add(this.indexA32());
         this.add(this.indexA33());
-        this.contextObserver();
+
+        this.onEventDispatcher();
+        Memory.baseBoard = this;
     }
 
-    private void contextObserver() {
+    public void onEventDispatcher() {
         if (Memory.isServer) {
             if (Memory.turnOf.equals("host")) {
                 this.glassPane.setVisible(false);
