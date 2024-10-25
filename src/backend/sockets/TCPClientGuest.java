@@ -34,7 +34,6 @@ public class TCPClientGuest extends Thread {
                 Memory.guestFrame.setVisible(false);
 
                 new BaseBoard();
-
             }
 
             while (true) {

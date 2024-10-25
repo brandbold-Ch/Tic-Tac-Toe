@@ -109,6 +109,7 @@ public class BaseBoard extends JFrame {
                 this.glassPane.setVisible(true);
             }
         } else {
+            System.out.println(Memory.turnOf);
             if (Memory.turnOf.equals("host")) {
                 this.glassPane.setVisible(true);
             }
