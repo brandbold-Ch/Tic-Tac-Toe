@@ -24,7 +24,7 @@ public class Memory {
 
     public static String turnOf = "host";
 
-    public static String isWinner = "not";
+    public static String isWinner = "none";
     public static boolean isAsync = false;
 
     public static Socket outputStreamGuest = null;

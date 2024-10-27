@@ -69,6 +69,8 @@ class ClientHandler extends Thread {
                 Memory.symbolPosition = parsedData.symbolPosition;
                 Memory.turnOf = parsedData.turnOf;
 
+                System.out.println(clientMessage);
+
                 if (Memory.turnOf.equals("guest")) {
                     out = new PrintWriter(Memory.outputStreamGuest.getOutputStream(), true);
                     out.println(clientMessage);
