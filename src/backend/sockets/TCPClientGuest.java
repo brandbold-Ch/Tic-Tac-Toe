@@ -38,7 +38,7 @@ public class TCPClientGuest extends TCPClientBase implements Runnable {
             }
 
             while (true) {
-                System.out.println("Datos recibidos del servidor. Soy Guest");
+                System.out.println("Datos recibidos del servidor: " + reader.readLine());
                 Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
                 Memory.symbolPosition = parsedData.symbolPosition;
                 Memory.turnOf = parsedData.turnOf;
