@@ -107,6 +107,7 @@ public class BaseBoard extends JFrame {
         if (this.horizontalLayout()) {
             JOptionPane.showMessageDialog(this, "Ganaste horizontalmente");
         }
+        System.exit(0);
     }
 
     public boolean isWinner() {
@@ -155,19 +156,14 @@ public class BaseBoard extends JFrame {
             }
 
             if (Memory.theWinner.equals("guest")) {
-                int result = JOptionPane.showConfirmDialog(
+                JOptionPane.showConfirmDialog(
                         this,
                         "Haz perdido, tu invitado te ha derrotado. ¿Deseas continuar?",
                         "Confirmación",
-                        JOptionPane.OK_CANCEL_OPTION
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE
                 );
-                if (result == JOptionPane.OK_OPTION) {
-                    new BaseBoard();
-                    this.dispose();
-
-                } else {
-                    System.exit(0);
-                }
+                System.exit(0);
             }
 
         } else {
@@ -180,19 +176,14 @@ public class BaseBoard extends JFrame {
             }
 
             if (Memory.theWinner.equals("host")) {
-                int result = JOptionPane.showConfirmDialog(
+                JOptionPane.showConfirmDialog(
                         this,
                         "Haz perdido, tu anfitrión te ha derrotado. ¿Deseas continuar?",
                         "Confirmación",
-                        JOptionPane.OK_CANCEL_OPTION
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE
                 );
-                if (result == JOptionPane.OK_OPTION) {
-                    new BaseBoard();
-                    this.dispose();
-
-                } else {
-                    System.exit(0);
-                }
+                System.exit(0);
             }
         }
     }
