@@ -92,7 +92,7 @@ public class BaseBoard extends JFrame {
         }
     }
 
-    public boolean isWinner() {
+    public boolean winnerContext() {
         if (this.upperTriangular() | this.lowerTriangular()) {
             JOptionPane.showMessageDialog(this, "Ganaste");
             return true;
@@ -207,7 +207,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A00",
                                         "guest",
-                                        (isWinner()) ? "host" : "not"
+                                        (winnerContext()) ? "host" : "not"
                                 );
 
                     } else {
@@ -216,7 +216,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A00",
                                         "host",
-                                        (isWinner()) ? "guest" : "not"
+                                        (winnerContext()) ? "guest" : "not"
                                 );
                     }
                     a00Pressed = true;
@@ -257,7 +257,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A01",
                                         "guest",
-                                        (isWinner()) ? "host" : "not"
+                                        (winnerContext()) ? "host" : "not"
                                 );
 
                     } else {
@@ -266,7 +266,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A01",
                                         "host",
-                                        (isWinner()) ? "guest" : "not"
+                                        (winnerContext()) ? "guest" : "not"
                                 );
                     }
                     a01Pressed = true;
@@ -307,7 +307,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A02",
                                         "guest",
-                                        (isWinner()) ? "host" : "not"
+                                        (winnerContext()) ? "host" : "not"
                                 );
 
                     } else {
@@ -316,7 +316,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A02",
                                         "host",
-                                        (isWinner()) ? "guest" : "not"
+                                        (winnerContext()) ? "guest" : "not"
                                 );
                     }
                     a02Pressed = true;
@@ -357,7 +357,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A20",
                                         "guest",
-                                        (isWinner()) ? "host" : "not"
+                                        (winnerContext()) ? "host" : "not"
                                 );
 
                     } else {
@@ -366,7 +366,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A20",
                                         "host",
-                                        (isWinner()) ? "guest" : "not"
+                                        (winnerContext()) ? "guest" : "not"
                                 );
                     }
                     a20Pressed = true;
@@ -407,7 +407,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A21",
                                         "guest",
-                                        (isWinner()) ? "host" : "not"
+                                        (winnerContext()) ? "host" : "not"
                                 );
 
                     } else {
@@ -416,7 +416,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A21",
                                         "host",
-                                        (isWinner()) ? "guest" : "not"
+                                        (winnerContext()) ? "guest" : "not"
                                 );
                     }
                     a21Pressed = true;
@@ -457,7 +457,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A22",
                                         "guest",
-                                        (isWinner()) ? "host" : "not"
+                                        (winnerContext()) ? "host" : "not"
                                 );
 
                     } else {
@@ -466,7 +466,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A22",
                                         "host",
-                                        (isWinner()) ? "guest" : "not"
+                                        (winnerContext()) ? "guest" : "not"
                                 );
                     }
                     a22Pressed = true;
@@ -507,7 +507,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A30",
                                         "guest",
-                                        (isWinner()) ? "host" : "not"
+                                        (winnerContext()) ? "host" : "not"
                                 );
 
                     } else {
@@ -516,7 +516,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A30",
                                         "host",
-                                        (isWinner()) ? "guest" : "not"
+                                        (winnerContext()) ? "guest" : "not"
                                 );
                     }
                     a30Pressed = true;
@@ -557,7 +557,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A31",
                                         "guest",
-                                        (isWinner()) ? "host" : "not"
+                                        (winnerContext()) ? "host" : "not"
                                 );
 
                     } else {
@@ -566,7 +566,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A31",
                                         "host",
-                                        (isWinner()) ? "guest" : "not"
+                                        (winnerContext()) ? "guest" : "not"
                                 );
                     }
                     a31Pressed = true;
@@ -607,7 +607,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A32",
                                         "guest",
-                                        (isWinner()) ? "host" : "not"
+                                        (winnerContext()) ? "host" : "not"
                                 );
 
                     } else {
@@ -616,7 +616,7 @@ public class BaseBoard extends JFrame {
                                 .sendMessage(
                                         "A32",
                                         "host",
-                                        (isWinner()) ? "host" : "not"
+                                        (winnerContext()) ? "host" : "not"
                                 );
                     }
                     a32Pressed = true;
