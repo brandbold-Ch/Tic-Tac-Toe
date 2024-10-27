@@ -92,78 +92,20 @@ public class BaseBoard extends JFrame {
     }
 
     public void contextWinner() {
-        int result = 0;
-
         if (this.upperTriangular()) {
-            result = JOptionPane
-                    .showConfirmDialog(
-                            this,
-                            "Ganaste con la diagonal mayor. ¿Deseas continuar?",
-                            "Confirmación",
-                            JOptionPane.OK_CANCEL_OPTION
-                    );
-            if (result == JOptionPane.OK_OPTION) {
-                new BaseBoard();
-                this.dispose();
-
-            } else {
-                this.dispose();
-                System.exit(0);
-            }
+            JOptionPane.showMessageDialog(this, "Ganaste con la diagonal mayor");
         }
 
         if (this.lowerTriangular()) {
-            result = JOptionPane
-                    .showConfirmDialog(
-                            this,
-                            "Ganaste con la diagonal menor. ¿Deseas continuar?",
-                            "Confirmación",
-                            JOptionPane.OK_CANCEL_OPTION
-                    );
-            if (result == JOptionPane.OK_OPTION) {
-                new BaseBoard();
-                this.dispose();
-
-            } else {
-                this.dispose();
-                System.exit(0);
-            }
+            JOptionPane.showMessageDialog(this, "Ganaste con la diagonal menor");
         }
 
         if (this.verticalLayout()) {
-            result = JOptionPane
-                    .showConfirmDialog(
-                            this,
-                            "Ganaste verticalmente. ¿Deseas continuar?",
-                            "Confirmación",
-                            JOptionPane.OK_CANCEL_OPTION
-                    );
-            if (result == JOptionPane.OK_OPTION) {
-                new BaseBoard();
-                this.dispose();
-
-            } else {
-                this.dispose();
-                System.exit(0);
-            }
+            JOptionPane.showMessageDialog(this, "Ganaste verticalmente");
         }
 
         if (this.horizontalLayout()) {
-            result = JOptionPane
-                    .showConfirmDialog(
-                            this,
-                            "Ganaste horizontalmente. ¿Deseas continuar?",
-                            "Confirmación",
-                            JOptionPane.OK_CANCEL_OPTION
-                    );
-            if (result == JOptionPane.OK_OPTION) {
-                new BaseBoard();
-                this.dispose();
-
-            } else {
-                this.dispose();
-                System.exit(0);
-            }
+            JOptionPane.showMessageDialog(this, "Ganaste horizontalmente");
         }
     }
 
@@ -201,6 +143,7 @@ public class BaseBoard extends JFrame {
 
     public void onEventDispatcher() {
         this.clientBoxActivator();
+        System.out.println(Memory.theWinner);
 
         if (Memory.isServer) {
             if (Memory.turnOf.equals("host")) {
@@ -212,19 +155,17 @@ public class BaseBoard extends JFrame {
             }
 
             if (Memory.theWinner.equals("guest")) {
-                int result = JOptionPane
-                        .showConfirmDialog(
-                                this,
-                                "Haz perdido, tu invitado te ha derrotado. ¿Deseas continuar?",
-                                "Confirmación",
-                                JOptionPane.OK_CANCEL_OPTION
-                        );
+                int result = JOptionPane.showConfirmDialog(
+                        this,
+                        "Haz perdido, tu invitado te ha derrotado. ¿Deseas continuar?",
+                        "Confirmación",
+                        JOptionPane.OK_CANCEL_OPTION
+                );
                 if (result == JOptionPane.OK_OPTION) {
                     new BaseBoard();
                     this.dispose();
 
                 } else {
-                    this.dispose();
                     System.exit(0);
                 }
             }
@@ -239,19 +180,17 @@ public class BaseBoard extends JFrame {
             }
 
             if (Memory.theWinner.equals("host")) {
-                int result = JOptionPane
-                        .showConfirmDialog(
-                                this,
-                                "Haz perdido, tu anfitrión te ha derrotado. ¿Deseas continuar?",
-                                "Confirmación",
-                                JOptionPane.OK_CANCEL_OPTION
-                        );
+                int result = JOptionPane.showConfirmDialog(
+                        this,
+                        "Haz perdido, tu anfitrión te ha derrotado. ¿Deseas continuar?",
+                        "Confirmación",
+                        JOptionPane.OK_CANCEL_OPTION
+                );
                 if (result == JOptionPane.OK_OPTION) {
                     new BaseBoard();
                     this.dispose();
 
                 } else {
-                    this.dispose();
                     System.exit(0);
                 }
             }
