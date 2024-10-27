@@ -93,6 +93,7 @@ public class BaseBoard extends JFrame {
     }
 
     public boolean winnerContext() {
+        System.out.println(this.upperTriangular());
         if (this.upperTriangular() | this.lowerTriangular()) {
             JOptionPane.showMessageDialog(this, "Ganaste");
             return true;
