@@ -77,8 +77,8 @@ public class HostWindow extends JFrame {
                 }
                 setVisible(false);
 
-                //new Thread(new TCPClientHost(), "ClientThread").start();
                 new Thread(new TCPServer(), "ServerThread").start();
+                new Thread(new TCPClientHost(), "ClientThread").start();
 
                 new BaseBoard();
             }
