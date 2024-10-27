@@ -205,6 +205,8 @@ public class BaseBoard extends JFrame {
             public void mousePressed(MouseEvent e) {
                 if (!a00Pressed) {
                     glassPane.setVisible(true);
+                    a00Pressed = true;
+                    items[0][0] = 1;
 
                     if (Memory.isServer) {
                         a00.setIcon(Memory.hostSymbol);
@@ -224,8 +226,6 @@ public class BaseBoard extends JFrame {
                                         (isWinner()) ? "guest" : "none"
                                 );
                     }
-                    a00Pressed = true;
-                    items[0][0] = 1;
                     contextWinner();
                 }
             }
@@ -256,6 +256,8 @@ public class BaseBoard extends JFrame {
             public void mousePressed(MouseEvent e) {
                 if (!a01Pressed) {
                     glassPane.setVisible(true);
+                    a01Pressed = true;
+                    items[0][1] = 1;
 
                     if (Memory.isServer) {
                         a01.setIcon(Memory.hostSymbol);
@@ -275,8 +277,6 @@ public class BaseBoard extends JFrame {
                                         (isWinner()) ? "guest" : "none"
                                 );
                     }
-                    a01Pressed = true;
-                    items[0][1] = 1;
                     contextWinner();
                 }
             }
@@ -307,6 +307,8 @@ public class BaseBoard extends JFrame {
             public void mousePressed(MouseEvent e) {
                 if (!a02Pressed) {
                     glassPane.setVisible(true);
+                    a02Pressed = true;
+                    items[0][2] = 1;
 
                     if (Memory.isServer) {
                         a02.setIcon(Memory.hostSymbol);
@@ -326,8 +328,6 @@ public class BaseBoard extends JFrame {
                                         (isWinner()) ? "guest" : "none"
                                 );
                     }
-                    a02Pressed = true;
-                    items[0][2] = 1;
                     contextWinner();
                 }
             }
@@ -360,7 +360,6 @@ public class BaseBoard extends JFrame {
                     glassPane.setVisible(true);
                     a20Pressed = true;
                     items[1][0] = 1;
-                    contextWinner();
 
                     if (Memory.isServer) {
                         a20.setIcon(Memory.hostSymbol);
@@ -380,6 +379,7 @@ public class BaseBoard extends JFrame {
                                         (isWinner()) ? "guest" : "none"
                                 );
                     }
+                    contextWinner();
                 }
             }
 
@@ -411,7 +411,6 @@ public class BaseBoard extends JFrame {
                     glassPane.setVisible(true);
                     a21Pressed = true;
                     items[1][1] = 1;
-                    contextWinner();
 
                     if (Memory.isServer) {
                         a21.setIcon(Memory.hostSymbol);
@@ -431,6 +430,7 @@ public class BaseBoard extends JFrame {
                                         (isWinner()) ? "guest" : "none"
                                 );
                     }
+                    contextWinner();
                 }
             }
 
@@ -462,7 +462,6 @@ public class BaseBoard extends JFrame {
                     glassPane.setVisible(true);
                     a22Pressed = true;
                     items[1][2] = 1;
-                    contextWinner();
 
                     if (Memory.isServer) {
                         a22.setIcon(Memory.hostSymbol);
@@ -482,6 +481,7 @@ public class BaseBoard extends JFrame {
                                         (isWinner()) ? "guest" : "none"
                                 );
                     }
+                    contextWinner();
                 }
             }
 
@@ -513,7 +513,6 @@ public class BaseBoard extends JFrame {
                     glassPane.setVisible(true);
                     a30Pressed = true;
                     items[2][0] = 1;
-                    contextWinner();
 
                     if (Memory.isServer) {
                         a30.setIcon(Memory.hostSymbol);
@@ -533,6 +532,7 @@ public class BaseBoard extends JFrame {
                                         (isWinner()) ? "guest" : "none"
                                 );
                     }
+                    contextWinner();
                 }
             }
 
@@ -564,7 +564,6 @@ public class BaseBoard extends JFrame {
                     glassPane.setVisible(true);
                     a31Pressed = true;
                     items[2][1] = 1;
-                    contextWinner();
 
                     if (Memory.isServer) {
                         a31.setIcon(Memory.hostSymbol);
@@ -584,6 +583,7 @@ public class BaseBoard extends JFrame {
                                         (isWinner()) ? "guest" : "none"
                                 );
                     }
+                    contextWinner();
                 }
             }
 
@@ -615,7 +615,6 @@ public class BaseBoard extends JFrame {
                     glassPane.setVisible(true);
                     a32Pressed = true;
                     items[2][2] = 1;
-                    contextWinner();
 
                     if (Memory.isServer) {
                         a32.setIcon(Memory.hostSymbol);
@@ -635,6 +634,7 @@ public class BaseBoard extends JFrame {
                                         (isWinner()) ? "host" : "none"
                                 );
                     }
+                    contextWinner();
                 }
             }
 
