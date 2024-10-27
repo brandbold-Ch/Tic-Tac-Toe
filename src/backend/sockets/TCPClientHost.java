@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.net.Socket;
 
-public class TCPClientHost extends TCPClientBase implements Runnable {
+public class TCPClientHost implements Runnable {
 
     public TCPClientHost() {}
 
@@ -31,6 +31,7 @@ public class TCPClientHost extends TCPClientBase implements Runnable {
                 Memory.symbolPosition = parsedData.symbolPosition;
                 Memory.turnOf = parsedData.turnOf;
                 Memory.theWinner = parsedData.theWinner;
+                System.out.println("Dentro del cliente tcp de host "+ Memory.theWinner);
                 Memory.baseBoard.onEventDispatcher();
             }
         } catch (IOException e) {

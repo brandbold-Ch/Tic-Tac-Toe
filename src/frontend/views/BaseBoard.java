@@ -1,8 +1,7 @@
 package frontend.views;
 
-import backend.sockets.TCPClientGuest;
-import backend.sockets.TCPClientHost;
 import backend.utils.Memory;
+import backend.utils.TCPClientBase;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -132,6 +131,7 @@ public class BaseBoard extends JFrame {
 
     public void onEventDispatcher() {
         this.clientBoxActivator();
+        System.out.println(Memory.theWinner);
 
         if (Memory.isServer) {
             if (Memory.turnOf.equals("host")) {
@@ -208,7 +208,7 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a00.setIcon(Memory.hostSymbol);
-                        new TCPClientHost()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A00",
                                         "guest",
@@ -217,7 +217,7 @@ public class BaseBoard extends JFrame {
 
                     } else {
                         a00.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A00",
                                         "host",
@@ -259,7 +259,7 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a01.setIcon(Memory.hostSymbol);
-                        new TCPClientHost()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A01",
                                         "guest",
@@ -268,7 +268,7 @@ public class BaseBoard extends JFrame {
 
                     } else {
                         a01.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A01",
                                         "host",
@@ -310,7 +310,7 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a02.setIcon(Memory.hostSymbol);
-                        new TCPClientHost()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A02",
                                         "guest",
@@ -319,7 +319,7 @@ public class BaseBoard extends JFrame {
 
                     } else {
                         a02.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A02",
                                         "host",
@@ -361,7 +361,7 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a20.setIcon(Memory.hostSymbol);
-                        new TCPClientHost()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A20",
                                         "guest",
@@ -370,7 +370,7 @@ public class BaseBoard extends JFrame {
 
                     } else {
                         a20.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A20",
                                         "host",
@@ -412,7 +412,7 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a21.setIcon(Memory.hostSymbol);
-                        new TCPClientHost()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A21",
                                         "guest",
@@ -421,7 +421,7 @@ public class BaseBoard extends JFrame {
 
                     } else {
                         a21.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A21",
                                         "host",
@@ -463,7 +463,7 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a22.setIcon(Memory.hostSymbol);
-                        new TCPClientHost()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A22",
                                         "guest",
@@ -472,7 +472,7 @@ public class BaseBoard extends JFrame {
 
                     } else {
                         a22.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A22",
                                         "host",
@@ -514,7 +514,7 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a30.setIcon(Memory.hostSymbol);
-                        new TCPClientHost()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A30",
                                         "guest",
@@ -523,7 +523,7 @@ public class BaseBoard extends JFrame {
 
                     } else {
                         a30.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A30",
                                         "host",
@@ -565,7 +565,7 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a31.setIcon(Memory.hostSymbol);
-                        new TCPClientHost()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A31",
                                         "guest",
@@ -574,7 +574,7 @@ public class BaseBoard extends JFrame {
 
                     } else {
                         a31.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A31",
                                         "host",
@@ -616,7 +616,7 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a32.setIcon(Memory.hostSymbol);
-                        new TCPClientHost()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A32",
                                         "guest",
@@ -625,7 +625,7 @@ public class BaseBoard extends JFrame {
 
                     } else {
                         a32.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest()
+                        new TCPClientBase()
                                 .sendMessage(
                                         "A32",
                                         "host",

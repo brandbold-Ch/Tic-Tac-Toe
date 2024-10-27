@@ -10,7 +10,7 @@ import java.io.*;
 import java.net.Socket;
 
 
-public class TCPClientGuest extends TCPClientBase implements Runnable {
+public class TCPClientGuest implements Runnable {
 
     public TCPClientGuest() {}
 
@@ -32,6 +32,7 @@ public class TCPClientGuest extends TCPClientBase implements Runnable {
                 Memory.hostSymbol = new ImageIcon(parsedData.hostSymbol);
                 Memory.turnOf = parsedData.turnOf;
                 Memory.configuredGuest = true;
+                System.out.println("Dentro del cliente tcp de guest "+ Memory.theWinner);
                 Memory.guestFrame.setVisible(false);
 
                 new BaseBoard();
