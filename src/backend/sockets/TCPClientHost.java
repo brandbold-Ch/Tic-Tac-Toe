@@ -15,14 +15,11 @@ public class TCPClientHost extends TCPClientBase implements Runnable {
     public void run() {
         try (Socket socket = new Socket(Memory.hostIP, Memory.hostPort)) {
             InputStream inputStream = socket.getInputStream();
-            OutputStream outputStream = socket.getOutputStream();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            PrintWriter writer = new PrintWriter(outputStream, true);
             Gson gson = new Gson();
 
             while (true) {
-                System.out.println(reader.readLine());
                 Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
                 Memory.symbolPosition = parsedData.symbolPosition;
                 Memory.turnOf = parsedData.turnOf;

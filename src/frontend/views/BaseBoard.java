@@ -155,13 +155,14 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a11Pressed) {
+                    glassPane.setVisible(true);
+
                     if (Memory.isServer) {
                         a11.setIcon(Memory.hostSymbol);
-                        glassPane.setVisible(true);
                         new TCPClientHost().sendMessage("a11", "guest");
+
                     } else {
                         a11.setIcon(Memory.guestSymbol);
-                        glassPane.setVisible(true);
                         new TCPClientGuest().sendMessage("a11", "host");
                     }
                     a11Pressed = true;
@@ -202,10 +203,15 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a12Pressed) {
+                    glassPane.setVisible(true);
+
                     if (Memory.isServer) {
                         a12.setIcon(Memory.hostSymbol);
+                        new TCPClientHost().sendMessage("a12", "guest");
+
                     } else {
                         a12.setIcon(Memory.guestSymbol);
+                        new TCPClientGuest().sendMessage("a12", "host");
                     }
                     a12Pressed = true;
                     items[0][1] = 1;
@@ -246,10 +252,15 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a13Pressed) {
+                    glassPane.setVisible(true);
+
                     if (Memory.isServer) {
                         a13.setIcon(Memory.hostSymbol);
+                        new TCPClientHost().sendMessage("a13", "guest");
+
                     } else {
                         a13.setIcon(Memory.guestSymbol);
+                        new TCPClientGuest().sendMessage("a13", "host");
                     }
                     a13Pressed = true;
                     items[0][2] = 1;
@@ -290,10 +301,15 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a21Pressed) {
+                    glassPane.setVisible(true);
+
                     if (Memory.isServer) {
                         a21.setIcon(Memory.hostSymbol);
+                        new TCPClientHost().sendMessage("a21", "guest");
+
                     } else {
                         a21.setIcon(Memory.guestSymbol);
+                        new TCPClientGuest().sendMessage("a21", "host");
                     }
                     a21Pressed = true;
                     items[1][0] = 1;
@@ -334,10 +350,15 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a22Pressed) {
+                    glassPane.setVisible(true);
+
                     if (Memory.isServer) {
                         a22.setIcon(Memory.hostSymbol);
+                        new TCPClientHost().sendMessage("a22", "guest");
+
                     } else {
                         a22.setIcon(Memory.guestSymbol);
+                        new TCPClientGuest().sendMessage("a22", "host");
                     }
                     a22Pressed = true;
                     items[1][1] = 1;
@@ -378,10 +399,15 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a23Pressed) {
+                    glassPane.setVisible(true);
+
                     if (Memory.isServer) {
                         a23.setIcon(Memory.hostSymbol);
+                        new TCPClientHost().sendMessage("a23", "guest");
+
                     } else {
                         a23.setIcon(Memory.guestSymbol);
+                        new TCPClientGuest().sendMessage("a23", "host");
                     }
                     a23Pressed = true;
                     items[1][2] = 1;
@@ -422,10 +448,15 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a31Pressed) {
+                    glassPane.setVisible(true);
+
                     if (Memory.isServer) {
                         a31.setIcon(Memory.hostSymbol);
+                        new TCPClientHost().sendMessage("a31", "guest");
+
                     } else {
                         a31.setIcon(Memory.guestSymbol);
+                        new TCPClientGuest().sendMessage("a31", "host");
                     }
                     a31Pressed = true;
                     items[2][0] = 1;
@@ -466,10 +497,15 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a32Pressed) {
+                    glassPane.setVisible(true);
+
                     if (Memory.isServer) {
                         a32.setIcon(Memory.hostSymbol);
+                        new TCPClientHost().sendMessage("a32", "guest");
+
                     } else {
                         a32.setIcon(Memory.guestSymbol);
+                        new TCPClientGuest().sendMessage("a32", "host");
                     }
                     a32Pressed = true;
                     items[2][1] = 1;
@@ -510,10 +546,15 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a33Pressed) {
+                    glassPane.setVisible(true);
+
                     if (Memory.isServer) {
                         a33.setIcon(Memory.hostSymbol);
+                        new TCPClientHost().sendMessage("a33", "guest");
+
                     } else {
                         a33.setIcon(Memory.guestSymbol);
+                        new TCPClientGuest().sendMessage("a33", "host");
                     }
                     a33Pressed = true;
                     items[2][2] = 1;
