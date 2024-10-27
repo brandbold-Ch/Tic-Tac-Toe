@@ -102,6 +102,14 @@ public class BaseBoard extends JFrame {
                             "Confirmación",
                             JOptionPane.OK_CANCEL_OPTION
                     );
+            if (result == JOptionPane.OK_OPTION) {
+                new BaseBoard();
+                this.dispose();
+
+            } else {
+                this.dispose();
+                System.exit(0);
+            }
         }
 
         if (this.lowerTriangular()) {
@@ -112,6 +120,14 @@ public class BaseBoard extends JFrame {
                             "Confirmación",
                             JOptionPane.OK_CANCEL_OPTION
                     );
+            if (result == JOptionPane.OK_OPTION) {
+                new BaseBoard();
+                this.dispose();
+
+            } else {
+                this.dispose();
+                System.exit(0);
+            }
         }
 
         if (this.verticalLayout()) {
@@ -122,6 +138,14 @@ public class BaseBoard extends JFrame {
                             "Confirmación",
                             JOptionPane.OK_CANCEL_OPTION
                     );
+            if (result == JOptionPane.OK_OPTION) {
+                new BaseBoard();
+                this.dispose();
+
+            } else {
+                this.dispose();
+                System.exit(0);
+            }
         }
 
         if (this.horizontalLayout()) {
@@ -132,15 +156,14 @@ public class BaseBoard extends JFrame {
                             "Confirmación",
                             JOptionPane.OK_CANCEL_OPTION
                     );
-        }
+            if (result == JOptionPane.OK_OPTION) {
+                new BaseBoard();
+                this.dispose();
 
-        if (result == JOptionPane.OK_OPTION) {
-            new BaseBoard();
-            this.dispose();
-
-        } else {
-            this.dispose();
-            System.exit(0);
+            } else {
+                this.dispose();
+                System.exit(0);
+            }
         }
     }
 
