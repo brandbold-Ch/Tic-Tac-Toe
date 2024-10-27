@@ -166,14 +166,13 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a11Pressed) {
+                    glassPane.setVisible(true);
 
                     if (Memory.isServer) {
-                        glassPane.setVisible(true);
                         a11.setIcon(Memory.hostSymbol);
                         new TCPClientHost().sendMessage("a11", "guest");
 
                     } else {
-                        glassPane.setVisible(true);
                         a11.setIcon(Memory.guestSymbol);
                         new TCPClientGuest().sendMessage("a11", "host");
                     }
@@ -215,14 +214,13 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a12Pressed) {
+                    glassPane.setVisible(true);
 
                     if (Memory.isServer) {
-                        glassPane.setVisible(true);
                         a12.setIcon(Memory.hostSymbol);
                         new TCPClientHost().sendMessage("a12", "guest");
 
                     } else {
-                        glassPane.setVisible(true);
                         a12.setIcon(Memory.guestSymbol);
                         new TCPClientGuest().sendMessage("a12", "host");
                     }
@@ -265,14 +263,13 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a13Pressed) {
+                    glassPane.setVisible(true);
 
                     if (Memory.isServer) {
-                        glassPane.setVisible(true);
                         a13.setIcon(Memory.hostSymbol);
                         new TCPClientHost().sendMessage("a13", "guest");
 
                     } else {
-                        glassPane.setVisible(true);
                         a13.setIcon(Memory.guestSymbol);
                         new TCPClientGuest().sendMessage("a13", "host");
                     }
@@ -315,14 +312,13 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a21Pressed) {
+                    glassPane.setVisible(true);
 
                     if (Memory.isServer) {
-                        glassPane.setVisible(true);
                         a21.setIcon(Memory.hostSymbol);
                         new TCPClientHost().sendMessage("a21", "guest");
 
                     } else {
-                        glassPane.setVisible(true);
                         a21.setIcon(Memory.guestSymbol);
                         new TCPClientGuest().sendMessage("a21", "host");
                     }
@@ -365,14 +361,13 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a22Pressed) {
+                    glassPane.setVisible(true);
 
                     if (Memory.isServer) {
-                        glassPane.setVisible(true);
                         a22.setIcon(Memory.hostSymbol);
                         new TCPClientHost().sendMessage("a22", "guest");
 
                     } else {
-                        glassPane.setVisible(true);
                         a22.setIcon(Memory.guestSymbol);
                         new TCPClientGuest().sendMessage("a22", "host");
                     }
@@ -415,14 +410,13 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a23Pressed) {
+                    glassPane.setVisible(true);
 
                     if (Memory.isServer) {
-                        glassPane.setVisible(true);
                         a23.setIcon(Memory.hostSymbol);
                         new TCPClientHost().sendMessage("a23", "guest");
 
                     } else {
-                        glassPane.setVisible(true);
                         a23.setIcon(Memory.guestSymbol);
                         new TCPClientGuest().sendMessage("a23", "host");
                     }
@@ -465,14 +459,13 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a31Pressed) {
+                    glassPane.setVisible(true);
 
                     if (Memory.isServer) {
-                        glassPane.setVisible(true);
                         a31.setIcon(Memory.hostSymbol);
                         new TCPClientHost().sendMessage("a31", "guest");
 
                     } else {
-                        glassPane.setVisible(true);
                         a31.setIcon(Memory.guestSymbol);
                         new TCPClientGuest().sendMessage("a31", "host");
                     }
@@ -515,14 +508,13 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a32Pressed) {
+                    glassPane.setVisible(true);
 
                     if (Memory.isServer) {
-                        glassPane.setVisible(true);
                         a32.setIcon(Memory.hostSymbol);
                         new TCPClientHost().sendMessage("a32", "guest");
 
                     } else {
-                        glassPane.setVisible(true);
                         a32.setIcon(Memory.guestSymbol);
                         new TCPClientGuest().sendMessage("a32", "host");
                     }
@@ -565,14 +557,13 @@ public class BaseBoard extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!a33Pressed) {
+                    glassPane.setVisible(true);
 
                     if (Memory.isServer) {
-                        glassPane.setVisible(true);
                         a33.setIcon(Memory.hostSymbol);
                         new TCPClientHost().sendMessage("a33", "guest");
 
                     } else {
-                        glassPane.setVisible(true);
                         a33.setIcon(Memory.guestSymbol);
                         new TCPClientGuest().sendMessage("a33", "host");
                     }
