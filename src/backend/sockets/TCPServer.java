@@ -62,10 +62,12 @@ class ClientHandler extends Thread {
                 Memory.turnOf = parsedData.turnOf;
 
                 if (Memory.turnOf.equals("guest")) {
+                    System.out.println("Turno de invitado");
                     out = new PrintWriter(Memory.outputStreamGuest.getOutputStream(), true);
                     out.println(clientMessage);
                 }
                 else if (Memory.turnOf.equals("host")) {
+                    System.out.println("Turno de anfitrión");
                     out = new PrintWriter(Memory.outputStreamHost.getOutputStream(), true);
                     out.println(clientMessage);
                 }
