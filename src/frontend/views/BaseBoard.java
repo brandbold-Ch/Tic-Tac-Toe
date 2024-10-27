@@ -104,10 +104,12 @@ public class BaseBoard extends JFrame {
     public void onEventDispatcher() {
         if (Memory.isServer) {
             System.out.println("onEventDispatcher: para Host, " + Memory.turnOf);
+
             if (Memory.turnOf.equals("host")) {
                 this.glassPane.setVisible(false);
             }
-            else if (Memory.turnOf.equals("guest")) {
+
+            if (Memory.turnOf.equals("guest")) {
                 this.glassPane.setVisible(true);
             }
         } else {
@@ -116,7 +118,8 @@ public class BaseBoard extends JFrame {
             if (Memory.turnOf.equals("host")) {
                 this.glassPane.setVisible(true);
             }
-            else if (Memory.turnOf.equals("guest")) {
+
+            if (Memory.turnOf.equals("guest")) {
                 this.glassPane.setVisible(false);
             }
         }
