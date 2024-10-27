@@ -105,15 +105,6 @@ public class BaseBoard extends JFrame {
         return this.upperTriangular() | this.lowerTriangular();
     }
 
-    public void selectorWinner() {
-        if (
-                (Memory.isServer && Memory.isWinner.equals("guest") ||
-                        (!Memory.isServer && Memory.isWinner.equals("host")))
-        ) {
-            JOptionPane.showMessageDialog(this, "Haz perdido contra tu oponente");
-        }
-    }
-
     public void clientBoxActivator() {
         Class<?> context = this.getClass();
         Field field = null;
@@ -141,7 +132,6 @@ public class BaseBoard extends JFrame {
 
     public void onEventDispatcher() {
         this.clientBoxActivator();
-        this.selectorWinner();
 
         if (Memory.isServer) {
             if (Memory.turnOf.equals("host")) {
@@ -152,6 +142,10 @@ public class BaseBoard extends JFrame {
                 this.glassPane.setVisible(true);
             }
 
+            if (Memory.isWinner.equals("guest")) {
+                JOptionPane.showMessageDialog(this, "Haz perdido contra el invitado");
+            }
+
         } else {
             if (Memory.turnOf.equals("host")) {
                 this.glassPane.setVisible(true);
@@ -159,6 +153,10 @@ public class BaseBoard extends JFrame {
 
             if (Memory.turnOf.equals("guest")) {
                 this.glassPane.setVisible(false);
+            }
+
+            if (Memory.isWinner.equals("host")) {
+                JOptionPane.showMessageDialog(this, "Haz perdido contra tu anfitrión");
             }
         }
     }
