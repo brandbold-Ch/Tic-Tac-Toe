@@ -66,7 +66,7 @@ public class BaseBoard extends JFrame {
         this.boardLabel.setIcon(new ImageIcon("src/frontend/assets/board.png"));
         this.boardLabel.setBounds(95, 20, 300, 298);
 
-        this.getContentPane().setBackground(Color.gray);
+        this.getContentPane().setBackground(Color.decode("#9FE2BF"));
         this.setGlassPane(this.glassPane);
         this.add(this.boardLabel);
 
@@ -193,14 +193,6 @@ public class BaseBoard extends JFrame {
                 } else {
                     System.exit(0);
                 }
-            }
-        }
-    }
-
-    private void clearArray () {
-        for (int i=0; i<3; i++) {
-            for (int j=0; j<3; j++) {
-                items[i][i] = 0;
             }
         }
     }
