@@ -145,11 +145,7 @@ public class BaseBoard extends JFrame {
 
             if (Memory.theWinner.equals("guest")) {
                 System.out.println(Memory.theWinner);
-                SwingUtilities.invokeLater(
-                        () -> JOptionPane.showMessageDialog(
-                                this, "Haz perdido contra el invitado"
-                        )
-                );
+                JOptionPane.showMessageDialog(this, "Haz perdido contra el invitado");
             }
 
         } else {
@@ -162,11 +158,7 @@ public class BaseBoard extends JFrame {
             }
 
             if (Memory.theWinner.equals("host")) {
-                SwingUtilities.invokeLater(
-                        () -> JOptionPane.showMessageDialog(
-                                this, "Haz perdido contra el anfitrión"
-                        )
-                );
+                JOptionPane.showMessageDialog(this, "Haz perdido contra el anfitrión");
             }
         }
     }
