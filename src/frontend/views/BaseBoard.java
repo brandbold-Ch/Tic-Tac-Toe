@@ -136,7 +136,6 @@ public class BaseBoard extends JFrame {
 
     public void onEventDispatcher() {
         this.clientBoxActivator();
-        this.selectorWinner();
 
         if (Memory.isServer) {
             if (Memory.turnOf.equals("host")) {
@@ -170,7 +169,7 @@ public class BaseBoard extends JFrame {
         int counter = 0;
 
         for (int i=0; i<3; i++) {
-            counter += this.items[i][i];
+            counter += items[i][i];
         }
         return (counter == 3);
     }
@@ -180,7 +179,7 @@ public class BaseBoard extends JFrame {
         int j = 0;
 
         for (int i=2; i>=0; i--) {
-            counter += this.items[j][i];
+            counter += items[j][i];
             j++;
         }
         return (counter == 3);
