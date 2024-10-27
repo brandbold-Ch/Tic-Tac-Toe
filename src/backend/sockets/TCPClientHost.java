@@ -30,6 +30,7 @@ public class TCPClientHost extends TCPClientBase implements Runnable {
                 Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
                 Memory.symbolPosition = parsedData.symbolPosition;
                 Memory.turnOf = parsedData.turnOf;
+                Memory.isWinner = parsedData.isWinner;
                 Memory.baseBoard.onEventDispatcher();
             }
         } catch (IOException e) {

@@ -23,6 +23,8 @@ public class Memory {
     public static ImageIcon guestSymbol = null;
 
     public static String turnOf = "host";
+
+    public static String isWinner = "not";
     public static boolean isAsync = false;
 
     public static Socket outputStreamGuest = null;

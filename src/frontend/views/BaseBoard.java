@@ -92,6 +92,23 @@ public class BaseBoard extends JFrame {
         }
     }
 
+    public boolean isWinner() {
+        if (this.upperTriangular() | this.lowerTriangular()) {
+            JOptionPane.showMessageDialog(this, "Ganaste");
+            return true;
+        }
+        return false;
+    }
+
+    public void selectorWinner() {
+        if (
+                (Memory.isServer && Memory.isWinner.equals("guest") ||
+                        (!Memory.isServer && Memory.isWinner.equals("host")))
+        ) {
+            JOptionPane.showMessageDialog(this, "Haz perdido contra tu oponente");
+        }
+    }
+
     public void clientBoxActivator() {
         Class<?> context = this.getClass();
         Field field = null;
@@ -119,6 +136,7 @@ public class BaseBoard extends JFrame {
 
     public void onEventDispatcher() {
         this.clientBoxActivator();
+        this.selectorWinner();
 
         if (Memory.isServer) {
             if (Memory.turnOf.equals("host")) {
@@ -176,8 +194,7 @@ public class BaseBoard extends JFrame {
 
         a00.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-            }
+            public void mouseClicked(MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -186,35 +203,35 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a00.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("A00", "guest");
+                        new TCPClientHost()
+                                .sendMessage(
+                                        "A00",
+                                        "guest",
+                                        (isWinner()) ? "host" : "not"
+                                );
 
                     } else {
                         a00.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("A00", "host");
+                        new TCPClientGuest()
+                                .sendMessage(
+                                        "A00",
+                                        "host",
+                                        (isWinner()) ? "guest" : "not"
+                                );
                     }
                     a00Pressed = true;
                     items[0][0] = 1;
-
-                    if (upperTriangular()) {
-                        System.out.println("You Win");
-                    }
                 }
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
+            public void mouseEntered(MouseEvent e) {}
 
             @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) {}
         });
         return a00;
     }
@@ -236,35 +253,35 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a01.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("A01", "guest");
+                        new TCPClientHost()
+                                .sendMessage(
+                                        "A01",
+                                        "guest",
+                                        (isWinner()) ? "host" : "not"
+                                );
 
                     } else {
                         a01.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("A01", "host");
+                        new TCPClientGuest()
+                                .sendMessage(
+                                        "A01",
+                                        "host",
+                                        (isWinner()) ? "guest" : "not"
+                                );
                     }
                     a01Pressed = true;
                     items[0][1] = 1;
-
-                    if (upperTriangular()) {
-                        System.out.println("You Win");
-                    }
                 }
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
+            public void mouseEntered(MouseEvent e) {}
 
             @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) {}
         });
         return a01;
     }
@@ -277,8 +294,7 @@ public class BaseBoard extends JFrame {
 
         a02.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-            }
+            public void mouseClicked(MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -287,35 +303,35 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a02.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("A02", "guest");
+                        new TCPClientHost()
+                                .sendMessage(
+                                        "A02",
+                                        "guest",
+                                        (isWinner()) ? "host" : "not"
+                                );
 
                     } else {
                         a02.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("A02", "host");
+                        new TCPClientGuest()
+                                .sendMessage(
+                                        "A02",
+                                        "host",
+                                        (isWinner()) ? "guest" : "not"
+                                );
                     }
                     a02Pressed = true;
                     items[0][2] = 1;
-
-                    if (upperTriangular()) {
-                        System.out.println("You Win");
-                    }
                 }
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
+            public void mouseEntered(MouseEvent e) {}
 
             @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) {}
         });
         return a02;
     }
@@ -328,8 +344,7 @@ public class BaseBoard extends JFrame {
 
         a20.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-            }
+            public void mouseClicked(MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -338,35 +353,35 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a20.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("A20", "guest");
+                        new TCPClientHost()
+                                .sendMessage(
+                                        "A20",
+                                        "guest",
+                                        (isWinner()) ? "host" : "not"
+                                );
 
                     } else {
                         a20.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("A20", "host");
+                        new TCPClientGuest()
+                                .sendMessage(
+                                        "A20",
+                                        "host",
+                                        (isWinner()) ? "guest" : "not"
+                                );
                     }
                     a20Pressed = true;
                     items[1][0] = 1;
-
-                    if (upperTriangular()) {
-                        System.out.println("You Win");
-                    }
                 }
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
+            public void mouseEntered(MouseEvent e) {}
 
             @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) {}
         });
         return a20;
     }
@@ -379,8 +394,7 @@ public class BaseBoard extends JFrame {
 
         a21.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-            }
+            public void mouseClicked(MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -389,35 +403,35 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a21.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("A21", "guest");
+                        new TCPClientHost()
+                                .sendMessage(
+                                        "A21",
+                                        "guest",
+                                        (isWinner()) ? "host" : "not"
+                                );
 
                     } else {
                         a21.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("A21", "host");
+                        new TCPClientGuest()
+                                .sendMessage(
+                                        "A21",
+                                        "host",
+                                        (isWinner()) ? "guest" : "not"
+                                );
                     }
                     a21Pressed = true;
                     items[1][1] = 1;
-
-                    if (upperTriangular()) {
-                        System.out.println("You Win");
-                    }
                 }
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
+            public void mouseEntered(MouseEvent e) {}
 
             @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) {}
         });
         return a21;
     }
@@ -430,8 +444,7 @@ public class BaseBoard extends JFrame {
 
         a22.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-            }
+            public void mouseClicked(MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -440,35 +453,35 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a22.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("A22", "guest");
+                        new TCPClientHost()
+                                .sendMessage(
+                                        "A22",
+                                        "guest",
+                                        (isWinner()) ? "host" : "not"
+                                );
 
                     } else {
                         a22.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("A22", "host");
+                        new TCPClientGuest()
+                                .sendMessage(
+                                        "A22",
+                                        "host",
+                                        (isWinner()) ? "guest" : "not"
+                                );
                     }
                     a22Pressed = true;
                     items[1][2] = 1;
-
-                    if (upperTriangular()) {
-                        System.out.println("You Win");
-                    }
                 }
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
+            public void mouseEntered(MouseEvent e) {}
 
             @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) {}
         });
         return a22;
     }
@@ -481,8 +494,7 @@ public class BaseBoard extends JFrame {
 
         a30.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-            }
+            public void mouseClicked(MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -491,35 +503,35 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a30.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("A30", "guest");
+                        new TCPClientHost()
+                                .sendMessage(
+                                        "A30",
+                                        "guest",
+                                        (isWinner()) ? "host" : "not"
+                                );
 
                     } else {
                         a30.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("A30", "host");
+                        new TCPClientGuest()
+                                .sendMessage(
+                                        "A30",
+                                        "host",
+                                        (isWinner()) ? "guest" : "not"
+                                );
                     }
                     a30Pressed = true;
                     items[2][0] = 1;
-
-                    if (upperTriangular()) {
-                        System.out.println("You Win");
-                    }
                 }
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
+            public void mouseEntered(MouseEvent e) {}
 
             @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) {}
         });
         return a30;
     }
@@ -532,8 +544,7 @@ public class BaseBoard extends JFrame {
 
         a31.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-            }
+            public void mouseClicked(MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -542,35 +553,35 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a31.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("A31", "guest");
+                        new TCPClientHost()
+                                .sendMessage(
+                                        "A31",
+                                        "guest",
+                                        (isWinner()) ? "host" : "not"
+                                );
 
                     } else {
                         a31.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("A31", "host");
+                        new TCPClientGuest()
+                                .sendMessage(
+                                        "A31",
+                                        "host",
+                                        (isWinner()) ? "guest" : "not"
+                                );
                     }
                     a31Pressed = true;
                     items[2][1] = 1;
-
-                    if (upperTriangular()) {
-                        System.out.println("You Win");
-                    }
                 }
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
+            public void mouseEntered(MouseEvent e) {}
 
             @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) {}
         });
         return a31;
     }
@@ -583,8 +594,7 @@ public class BaseBoard extends JFrame {
 
         a32.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-            }
+            public void mouseClicked(MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -593,35 +603,35 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a32.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("A32", "guest");
+                        new TCPClientHost()
+                                .sendMessage(
+                                        "A32",
+                                        "guest",
+                                        (isWinner()) ? "host" : "not"
+                                );
 
                     } else {
                         a32.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("A32", "host");
+                        new TCPClientGuest()
+                                .sendMessage(
+                                        "A32",
+                                        "host",
+                                        (isWinner()) ? "host" : "not"
+                                );
                     }
                     a32Pressed = true;
                     items[2][2] = 1;
-
-                    if (upperTriangular()) {
-                        System.out.println("You Win");
-                    }
                 }
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
+            public void mouseEntered(MouseEvent e) {}
 
             @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) {}
         });
         return a32;
     }
