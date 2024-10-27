@@ -1,4 +1,12 @@
+import java.io.File;
+import java.lang.reflect.Method;
+
 public class Matrix {
+
+    public String test() {
+        return "Hello";
+    }
+
     public static void main(String[] args) {
         byte[][] array = new byte[3][3];
         array[0][0] = 1;
@@ -18,7 +26,11 @@ public class Matrix {
             i++;
         }
          */
+        Class<?> obj = Matrix.class;
+        Method[] methods = obj.getDeclaredMethods();
 
-        System.out.println("a01".substring(1));
+        for (Method method : methods) {
+            System.out.println(method.getReturnType() == String.class);
+        }
     }
 }

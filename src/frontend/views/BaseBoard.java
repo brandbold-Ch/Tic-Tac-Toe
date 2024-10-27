@@ -9,13 +9,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 
 public class BaseBoard extends JFrame {
 
     public JLabel boardLabel;
     private final byte[][] items = new byte[3][3];
-    private final JLabel[] labels = new JLabel[9];
+    Class<?> context = this.getClass();
+    Method[] methods = context.getDeclaredMethods();
     private final JPanel glassPane;
     private boolean a00Pressed = false;
     private boolean a01Pressed = false;
@@ -77,18 +80,14 @@ public class BaseBoard extends JFrame {
     }
 
     private void labelContainers() {
-        this.labels[0] = this.indexA00();
-        this.labels[1] = this.indexA01();
-        this.labels[2] = this.indexA02();
-        this.labels[3] = this.indexA20();
-        this.labels[4] = this.indexA21();
-        this.labels[5] = this.indexA22();
-        this.labels[6] = this.indexA30();
-        this.labels[7] = this.indexA31();
-        this.labels[8] = this.indexA32();
-
-        for (JLabel label : this.labels) {
-            this.add(label);
+        for (Method method : methods) {
+            if (method.getReturnType() == JLabel.class) {
+                try {
+                    this.add((JLabel) method.invoke(this));
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 
@@ -96,21 +95,25 @@ public class BaseBoard extends JFrame {
         Class<?> context = this.getClass();
         Field field = null;
 
-        for (JLabel label : this.labels) {
-            if (label.getName().equals(Memory.symbolPosition)) {
+        for (Method method : methods) {
+            if (method.getReturnType() == JLabel.class) {
                 try {
-                    if (Memory.isServer) {
-                        label.setIcon(Memory.guestSymbol);
+                    JLabel label = (JLabel) method.invoke(this);
 
-                    } else {
-                        label.setIcon(Memory.hostSymbol);
+                    if (label.getName().equals(Memory.symbolPosition)) {
+                        if (Memory.isServer) {
+                            label.setIcon(Memory.guestSymbol);
+
+                        } else {
+                            label.setIcon(Memory.hostSymbol);
+                        }
+
+                        field = context.getDeclaredField("a"+Memory.symbolPosition.substring(1)+"Pressed");
+                        field.setAccessible(true);
+                        field.set(this, true);
                     }
 
-                    field = context.getDeclaredField("a"+ Memory.symbolPosition.substring(1)+"Pressed");
-                    field.setAccessible(true);
-                    field.set(this, true);
-
-                } catch (NoSuchFieldException | IllegalAccessException e) {
+                } catch (IllegalAccessException | InvocationTargetException | NoSuchFieldException e) {
                     throw new RuntimeException(e);
                 }
             }
