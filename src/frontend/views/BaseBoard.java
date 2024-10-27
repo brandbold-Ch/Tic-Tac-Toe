@@ -132,7 +132,6 @@ public class BaseBoard extends JFrame {
 
     public void onEventDispatcher() {
         this.clientBoxActivator();
-        System.out.println(Memory.theWinner);
 
         if (Memory.isServer) {
             if (Memory.turnOf.equals("host")) {
@@ -144,7 +143,7 @@ public class BaseBoard extends JFrame {
             }
 
             if (Memory.theWinner.equals("guest")) {
-                System.out.println(Memory.theWinner);
+                System.out.println("Ganó el invitado");
                 JOptionPane.showMessageDialog(this, "Haz perdido contra el invitado");
             }
 
@@ -158,6 +157,7 @@ public class BaseBoard extends JFrame {
             }
 
             if (Memory.theWinner.equals("host")) {
+                System.out.println("Ganó el anfitrión");
                 JOptionPane.showMessageDialog(this, "Haz perdido contra el anfitrión");
             }
         }
