@@ -32,7 +32,6 @@ public class TCPClientGuest implements Runnable {
                 Memory.hostSymbol = new ImageIcon(parsedData.hostSymbol);
                 Memory.turnOf = parsedData.turnOf;
                 Memory.configuredGuest = true;
-                System.out.println("Dentro del cliente tcp de guest "+ Memory.theWinner);
                 Memory.guestFrame.setVisible(false);
 
                 new BaseBoard();

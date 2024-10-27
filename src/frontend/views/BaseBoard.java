@@ -94,9 +94,18 @@ public class BaseBoard extends JFrame {
     public void contextWinner() {
         if (this.upperTriangular()) {
             JOptionPane.showMessageDialog(this, "Ganaste con la diagonal mayor");
+        }
 
-        } else if (this.lowerTriangular()) {
+        if (this.lowerTriangular()) {
             JOptionPane.showMessageDialog(this, "Ganaste con la diagonal menor");
+        }
+
+        if (this.verticalLayout()) {
+            JOptionPane.showMessageDialog(this, "Ganaste verticalmente");
+        }
+
+        if (this.horizontalLayout()) {
+            JOptionPane.showMessageDialog(this, "Ganaste horizontalmente");
         }
     }
 
@@ -171,6 +180,38 @@ public class BaseBoard extends JFrame {
         }
     }
 
+    private boolean horizontalLayout() {
+        int counter = 0;
+
+        for (int i=0; i < 3; i++) {
+            for (int j=0; j < 3; j++) {
+                counter += items[i][j];
+            }
+            if (counter == 3){
+                return true;
+            }
+            counter = 0;
+        }
+        return false;
+    }
+
+    private boolean verticalLayout() {
+        int counter = 0;
+
+        for (int k=0; k<3; k++) {
+            for (int i=0; i<3; i++) {
+                for (int j=0; j<1; j++) {
+                    counter += items[i][j+k];
+                }
+            }
+            if (counter == 3){
+                return true;
+            }
+            counter = 0;
+        }
+        return false;
+    }
+
     private boolean upperTriangular() {
         int counter = 0;
 
@@ -182,11 +223,11 @@ public class BaseBoard extends JFrame {
 
     private boolean lowerTriangular() {
         int counter = 0;
-        int j = 0;
+        int i = 0;
 
-        for (int i=2; i>=0; i--) {
-            counter += items[j][i];
-            j++;
+        for (int j=2; j>=0; j--) {
+            counter += items[i][j];
+            i++;
         }
         return (counter == 3);
     }

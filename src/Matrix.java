@@ -20,17 +20,25 @@ public class Matrix {
         array[2][2] = 9;
 
         /*
-        int i = 0;
-        for (int j=2; j >= 0; j--) {
-            System.out.println(array[i][j]);
-            i++;
+        int counter = 0;
+        for (int j=0; j < 3; j++) {
+            for (int i=0; i < 3; i++) {
+                counter += array[j][i];
+            }
+            System.out.println(counter);
+            counter = 0;
         }
          */
-        Class<?> obj = Matrix.class;
-        Method[] methods = obj.getDeclaredMethods();
 
-        for (Method method : methods) {
-            System.out.println(method.getReturnType() == String.class);
+        int counter = 0;
+        for (int k=0; k<3; k++) {
+            for (int i=0; i<3; i++) {
+                for (int j=0; j<1; j++) {
+                    counter += array[i][j+k];
+                }
+            }
+            System.out.println(counter);
+            counter = 0;
         }
     }
 }

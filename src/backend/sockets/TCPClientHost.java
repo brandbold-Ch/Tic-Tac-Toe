@@ -31,7 +31,6 @@ public class TCPClientHost implements Runnable {
                 Memory.symbolPosition = parsedData.symbolPosition;
                 Memory.turnOf = parsedData.turnOf;
                 Memory.theWinner = parsedData.theWinner;
-                System.out.println("Dentro del cliente tcp de host "+ Memory.theWinner);
                 Memory.baseBoard.onEventDispatcher();
             }
         } catch (IOException e) {
