@@ -25,7 +25,7 @@ public class TCPClientGuest extends TCPClientBase implements Runnable {
             Gson gson = new Gson();
 
             if (!Memory.configuredGuest) {
-                writer.println("getHostData");
+                writer.println("synchronizeGuest");
                 Responses parsedData = gson.fromJson(reader.readLine(), Responses.class);
 
                 Memory.guestSymbol = new ImageIcon(parsedData.guestSymbol);

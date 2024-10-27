@@ -57,11 +57,16 @@ class ClientHandler extends Thread {
             String clientMessage = in.readLine();
             Gson gson = new Gson();
 
-            if (clientMessage.equals("getHostData")) {
+            if (clientMessage.equals("synchronizeGuest")) {
                 Memory.outputStreamGuest = clientSocket;
                 out.println(Memory.toJSON());
+            }
 
-            } else {
+            if (clientMessage.equals("synchronizeHost")) {
+                Memory.outputStreamHost = clientSocket;
+            }
+
+            else {
                 Responses parsedData = gson.fromJson(clientMessage, Responses.class);
                 Memory.symbolPosition = parsedData.symbolPosition;
                 Memory.turnOf = parsedData.turnOf;

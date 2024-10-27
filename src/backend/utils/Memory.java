@@ -8,6 +8,7 @@ import java.net.Socket;
 public class Memory {
 
     public static boolean configuredGuest = false;
+    public static boolean configuredHost = false;
     public static GuestWindow guestFrame = null;
 
     public static boolean isServer = false;
