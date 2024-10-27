@@ -134,15 +134,8 @@ public class BaseBoard extends JFrame {
         this.clientBoxActivator();
 
         if (Memory.isServer) {
-            if (Memory.turnOf.equals("host")) {
-                this.glassPane.setVisible(false);
-            }
-
-            if (Memory.turnOf.equals("guest")) {
-                this.glassPane.setVisible(true);
-            }
-
             if (Memory.isWinner.equals("guest")) {
+                System.out.println(Memory.isWinner);
                 SwingUtilities.invokeLater(
                         () -> JOptionPane.showMessageDialog(
                                 this, "Haz perdido contra el invitado"
@@ -150,21 +143,29 @@ public class BaseBoard extends JFrame {
                 );
             }
 
-        } else {
             if (Memory.turnOf.equals("host")) {
-                this.glassPane.setVisible(true);
-            }
-
-            if (Memory.turnOf.equals("guest")) {
                 this.glassPane.setVisible(false);
             }
 
+            if (Memory.turnOf.equals("guest")) {
+                this.glassPane.setVisible(true);
+            }
+
+        } else {
             if (Memory.isWinner.equals("host")) {
                 SwingUtilities.invokeLater(
                         () -> JOptionPane.showMessageDialog(
                                 this, "Haz perdido contra el anfitrión"
                         )
                 );
+            }
+
+            if (Memory.turnOf.equals("host")) {
+                this.glassPane.setVisible(true);
+            }
+
+            if (Memory.turnOf.equals("guest")) {
+                this.glassPane.setVisible(false);
             }
         }
     }
