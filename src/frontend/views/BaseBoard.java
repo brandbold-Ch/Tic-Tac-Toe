@@ -105,13 +105,28 @@ public class BaseBoard extends JFrame {
         if (Memory.isServer) {
             System.out.println("onEventDispatcher: para Host, " + Memory.turnOf);
 
-            this.glassPane.setVisible(!this.glassPane.isVisible());
+            if (Memory.turnOf.equals("host")) {
+                System.out.println("Destapando pantalla a host");
+                this.glassPane.setVisible(false);
+            }
 
+            if (Memory.turnOf.equals("guest")) {
+                System.out.println("Tapando pantalla a host");
+                this.glassPane.setVisible(true);
+            }
 
         } else {
             System.out.println("onEventDispatcher: para Guest, " + Memory.turnOf);
 
-            this.glassPane.setVisible(!this.glassPane.isVisible());
+            if (Memory.turnOf.equals("host")) {
+                System.out.println("Tapando pantalla a guest");
+                this.glassPane.setVisible(true);
+            }
+
+            if (Memory.turnOf.equals("guest")) {
+                System.out.println("Destapando pantalla a guest");
+                this.glassPane.setVisible(false);
+            }
         }
     }
 
