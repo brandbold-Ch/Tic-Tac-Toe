@@ -102,6 +102,7 @@ public class BaseBoard extends JFrame {
     }
 
     public void onEventDispatcher() {
+        System.out.println(Memory.toJSON());
         if (Memory.isServer) {
             System.out.println("onEventDispatcher: para Host, " + Memory.turnOf);
 
