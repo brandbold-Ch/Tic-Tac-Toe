@@ -110,7 +110,10 @@ public class BaseBoard extends JFrame {
     }
 
     public boolean isWinner() {
-        return this.upperTriangular() | this.lowerTriangular();
+        return this.upperTriangular() |
+                this.lowerTriangular() |
+                this.horizontalLayout() |
+                this.verticalLayout();
     }
 
     public void clientBoxActivator() {
@@ -152,7 +155,6 @@ public class BaseBoard extends JFrame {
             }
 
             if (Memory.theWinner.equals("guest")) {
-                System.out.println("Ganó el invitado");
                 JOptionPane.showMessageDialog(this, "Haz perdido contra el invitado");
             }
 
@@ -166,7 +168,6 @@ public class BaseBoard extends JFrame {
             }
 
             if (Memory.theWinner.equals("host")) {
-                System.out.println("Ganó el anfitrión");
                 JOptionPane.showMessageDialog(this, "Haz perdido contra el anfitrión");
             }
         }
