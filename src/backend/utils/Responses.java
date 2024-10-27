@@ -5,5 +5,5 @@ public class Responses {
    public String guestSymbol;
    public String turnOf;
    public String symbolPosition;
-   public String isWinner;
+   public String theWinner;
 }

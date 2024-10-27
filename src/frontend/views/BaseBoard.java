@@ -132,7 +132,7 @@ public class BaseBoard extends JFrame {
 
     public void onEventDispatcher() {
         this.clientBoxActivator();
-        System.out.println(Memory.isWinner);
+        System.out.println(Memory.theWinner);
 
         if (Memory.isServer) {
             if (Memory.turnOf.equals("host")) {
@@ -143,8 +143,8 @@ public class BaseBoard extends JFrame {
                 this.glassPane.setVisible(true);
             }
 
-            if (Memory.isWinner.equals("guest")) {
-                System.out.println(Memory.isWinner);
+            if (Memory.theWinner.equals("guest")) {
+                System.out.println(Memory.theWinner);
                 SwingUtilities.invokeLater(
                         () -> JOptionPane.showMessageDialog(
                                 this, "Haz perdido contra el invitado"
@@ -161,7 +161,7 @@ public class BaseBoard extends JFrame {
                 this.glassPane.setVisible(false);
             }
 
-            if (Memory.isWinner.equals("host")) {
+            if (Memory.theWinner.equals("host")) {
                 SwingUtilities.invokeLater(
                         () -> JOptionPane.showMessageDialog(
                                 this, "Haz perdido contra el anfitrión"
