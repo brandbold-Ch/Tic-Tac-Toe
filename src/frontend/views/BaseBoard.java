@@ -94,20 +94,24 @@ public class BaseBoard extends JFrame {
     public void contextWinner() {
         if (this.upperTriangular()) {
             JOptionPane.showMessageDialog(this, "Ganaste con la diagonal mayor");
+            System.exit(0);
         }
 
         if (this.lowerTriangular()) {
             JOptionPane.showMessageDialog(this, "Ganaste con la diagonal menor");
+            System.exit(0);
         }
 
         if (this.verticalLayout()) {
             JOptionPane.showMessageDialog(this, "Ganaste verticalmente");
+            System.exit(0);
         }
 
         if (this.horizontalLayout()) {
             JOptionPane.showMessageDialog(this, "Ganaste horizontalmente");
+            System.exit(0);
         }
-        System.exit(0);
+
     }
 
     public boolean isWinner() {
