@@ -143,7 +143,6 @@ public class BaseBoard extends JFrame {
 
     public void onEventDispatcher() {
         this.clientBoxActivator();
-        System.out.println(Memory.theWinner);
 
         if (Memory.isServer) {
             if (Memory.turnOf.equals("host")) {
@@ -155,7 +154,21 @@ public class BaseBoard extends JFrame {
             }
 
             if (Memory.theWinner.equals("guest")) {
-                JOptionPane.showMessageDialog(this, "Haz perdido contra el invitado");
+                int result = JOptionPane
+                        .showConfirmDialog(
+                                this,
+                                "Haz perdido, tu invitado te ha derrotado. ¿Deseas continuar?",
+                                "Confirmación",
+                                JOptionPane.OK_CANCEL_OPTION
+                        );
+                if (result == JOptionPane.OK_OPTION) {
+                    new BaseBoard();
+                    this.dispose();
+
+                } else {
+                    this.dispose();
+                    System.exit(0);
+                }
             }
 
         } else {
@@ -168,7 +181,21 @@ public class BaseBoard extends JFrame {
             }
 
             if (Memory.theWinner.equals("host")) {
-                JOptionPane.showMessageDialog(this, "Haz perdido contra el anfitrión");
+                int result = JOptionPane
+                        .showConfirmDialog(
+                                this,
+                                "Haz perdido, tu anfitrión te ha derrotado. ¿Deseas continuar?",
+                                "Confirmación",
+                                JOptionPane.OK_CANCEL_OPTION
+                        );
+                if (result == JOptionPane.OK_OPTION) {
+                    new BaseBoard();
+                    this.dispose();
+
+                } else {
+                    this.dispose();
+                    System.exit(0);
+                }
             }
         }
     }
