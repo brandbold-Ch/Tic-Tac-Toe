@@ -142,10 +142,6 @@ public class BaseBoard extends JFrame {
                 this.glassPane.setVisible(true);
             }
 
-            if (Memory.isWinner.equals("guest")) {
-                JOptionPane.showMessageDialog(this, "Haz perdido contra el invitado");
-            }
-
         } else {
             if (Memory.turnOf.equals("host")) {
                 this.glassPane.setVisible(true);
@@ -153,10 +149,6 @@ public class BaseBoard extends JFrame {
 
             if (Memory.turnOf.equals("guest")) {
                 this.glassPane.setVisible(false);
-            }
-
-            if (Memory.isWinner.equals("host")) {
-                JOptionPane.showMessageDialog(this, "Haz perdido contra tu anfitrión");
             }
         }
     }
