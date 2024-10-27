@@ -92,20 +92,55 @@ public class BaseBoard extends JFrame {
     }
 
     public void contextWinner() {
+        int result = 0;
+
         if (this.upperTriangular()) {
-            JOptionPane.showMessageDialog(this, "Ganaste con la diagonal mayor");
+            result = JOptionPane
+                    .showConfirmDialog(
+                            this,
+                            "Ganaste con la diagonal mayor. ¿Deseas continuar?",
+                            "Confirmación",
+                            JOptionPane.OK_CANCEL_OPTION
+                    );
         }
 
         if (this.lowerTriangular()) {
-            JOptionPane.showMessageDialog(this, "Ganaste con la diagonal menor");
+            result = JOptionPane
+                    .showConfirmDialog(
+                            this,
+                            "Ganaste con la diagonal menor. ¿Deseas continuar?",
+                            "Confirmación",
+                            JOptionPane.OK_CANCEL_OPTION
+                    );
         }
 
         if (this.verticalLayout()) {
-            JOptionPane.showMessageDialog(this, "Ganaste verticalmente");
+            result = JOptionPane
+                    .showConfirmDialog(
+                            this,
+                            "Ganaste verticalmente. ¿Deseas continuar?",
+                            "Confirmación",
+                            JOptionPane.OK_CANCEL_OPTION
+                    );
         }
 
         if (this.horizontalLayout()) {
-            JOptionPane.showMessageDialog(this, "Ganaste horizontalmente");
+            result = JOptionPane
+                    .showConfirmDialog(
+                            this,
+                            "Ganaste horizontalmente. ¿Deseas continuar?",
+                            "Confirmación",
+                            JOptionPane.OK_CANCEL_OPTION
+                    );
+        }
+
+        if (result == JOptionPane.OK_OPTION) {
+            new BaseBoard();
+            this.dispose();
+
+        } else {
+            this.dispose();
+            System.exit(0);
         }
     }
 
