@@ -52,29 +52,25 @@ class ClientHandler extends Thread {
 
     public void dataHandler() {
         try {
-            Gson gson = new Gson();
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             String clientMessage = in.readLine();
+            Gson gson = new Gson();
 
             if (clientMessage.equals("getHostData")) {
-                System.out.println(clientMessage);
                 Memory.outputStreamGuest = clientSocket;
                 out.println(Memory.toJSON());
 
             } else {
                 Responses parsedData = gson.fromJson(clientMessage, Responses.class);
-                Memory.outputStreamHost = clientSocket;
                 Memory.symbolPosition = parsedData.symbolPosition;
                 Memory.turnOf = parsedData.turnOf;
 
                 if (Memory.turnOf.equals("guest")) {
-                    System.out.println("Turno de invitado");
                     out = new PrintWriter(Memory.outputStreamGuest.getOutputStream(), true);
                     out.println(clientMessage);
                 }
                 else if (Memory.turnOf.equals("host")) {
-                    System.out.println("Turno de anfitrión");
                     out = new PrintWriter(Memory.outputStreamHost.getOutputStream(), true);
                     out.println(clientMessage);
                 }

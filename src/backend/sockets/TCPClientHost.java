@@ -15,6 +15,7 @@ public class TCPClientHost extends TCPClientBase implements Runnable {
     public void run() {
         try (Socket socket = new Socket(Memory.hostIP, Memory.hostPort)) {
             InputStream inputStream = socket.getInputStream();
+            Memory.outputStreamHost = socket;
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             Gson gson = new Gson();
