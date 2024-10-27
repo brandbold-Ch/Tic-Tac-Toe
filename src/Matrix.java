@@ -11,10 +11,14 @@ public class Matrix {
         array[2][1] = 8;
         array[2][2] = 9;
 
-        for (int i=0; i<3; i++) {
-            for (int j=0; j<3; j++) {
-                System.out.println(array[i][j]);
-            }
+        /*
+        int i = 0;
+        for (int j=2; j >= 0; j--) {
+            System.out.println(array[i][j]);
+            i++;
         }
+         */
+
+        System.out.println("a01".substring(1));
     }
 }

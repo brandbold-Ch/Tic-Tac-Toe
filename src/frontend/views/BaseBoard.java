@@ -8,31 +8,24 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.lang.reflect.Field;
 
 
 public class BaseBoard extends JFrame {
 
     public JLabel boardLabel;
-    private byte[][] items = new byte[3][3];
-    private JPanel glassPane;
-    private boolean a11Pressed = false;
-    private boolean a12Pressed = false;
-    private boolean a13Pressed = false;
+    private final byte[][] items = new byte[3][3];
+    private final JLabel[] labels = new JLabel[9];
+    private final JPanel glassPane;
+    private boolean a00Pressed = false;
+    private boolean a01Pressed = false;
+    private boolean a02Pressed = false;
+    private boolean a20Pressed = false;
     private boolean a21Pressed = false;
     private boolean a22Pressed = false;
-    private boolean a23Pressed = false;
+    private boolean a30Pressed = false;
     private boolean a31Pressed = false;
     private boolean a32Pressed = false;
-    private boolean a33Pressed = false;
-    private final JLabel a11;
-    private final JLabel a12;
-    private final JLabel a13;
-    private final JLabel a21;
-    private final JLabel a22;
-    private final JLabel a23;
-    private final JLabel a31;
-    private final JLabel a32;
-    private final JLabel a33;
 
     public BaseBoard() {
         this.setSize(new Dimension(500, 500));
@@ -70,16 +63,6 @@ public class BaseBoard extends JFrame {
             public void mouseMoved(MouseEvent e) {}
         });
 
-        this.a11 = new JLabel();
-        this.a12 = new JLabel();
-        this.a13 = new JLabel();
-        this.a21 = new JLabel();
-        this.a22 = new JLabel();
-        this.a23 = new JLabel();
-        this.a31 = new JLabel();
-        this.a32 = new JLabel();
-        this.a33 = new JLabel();
-
         this.boardLabel = new JLabel();
         this.boardLabel.setIcon(new ImageIcon("src/frontend/assets/board.png"));
         this.boardLabel.setBounds(95, 20, 300, 298);
@@ -87,44 +70,71 @@ public class BaseBoard extends JFrame {
         this.getContentPane().setBackground(Color.gray);
         this.setGlassPane(this.glassPane);
         this.add(this.boardLabel);
-        this.add(this.indexA11());
-        this.add(this.indexA12());
-        this.add(this.indexA13());
-        this.add(this.indexA21());
-        this.add(this.indexA22());
-        this.add(this.indexA23());
-        this.add(this.indexA31());
-        this.add(this.indexA32());
-        this.add(this.indexA33());
 
+        this.labelContainers();
         this.onEventDispatcher();
         Memory.baseBoard = this;
     }
 
-    public void onEventDispatcher() {
-        if (Memory.isServer) {
-            System.out.println("onEventDispatcher: para Host, " + Memory.turnOf);
+    private void labelContainers() {
+        this.labels[0] = this.indexA00();
+        this.labels[1] = this.indexA01();
+        this.labels[2] = this.indexA02();
+        this.labels[3] = this.indexA20();
+        this.labels[4] = this.indexA21();
+        this.labels[5] = this.indexA22();
+        this.labels[6] = this.indexA30();
+        this.labels[7] = this.indexA31();
+        this.labels[8] = this.indexA32();
 
+        for (JLabel label : this.labels) {
+            this.add(label);
+        }
+    }
+
+    public void clientBoxActivator() {
+        Class<?> context = this.getClass();
+        Field field = null;
+
+        for (JLabel label : this.labels) {
+            if (label.getName().equals(Memory.symbolPosition)) {
+                try {
+                    if (Memory.isServer) {
+                        label.setIcon(Memory.guestSymbol);
+
+                    } else {
+                        label.setIcon(Memory.hostSymbol);
+                    }
+
+                    field = context.getDeclaredField("a"+ Memory.symbolPosition.substring(1)+"Pressed");
+                    field.setAccessible(true);
+                    field.set(this, true);
+
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
+    public void onEventDispatcher() {
+        this.clientBoxActivator();
+
+        if (Memory.isServer) {
             if (Memory.turnOf.equals("host")) {
-                System.out.println("Destapando pantalla a host");
                 this.glassPane.setVisible(false);
             }
 
             if (Memory.turnOf.equals("guest")) {
-                System.out.println("Tapando pantalla a host");
                 this.glassPane.setVisible(true);
             }
 
         } else {
-            System.out.println("onEventDispatcher: para Guest, " + Memory.turnOf);
-
             if (Memory.turnOf.equals("host")) {
-                System.out.println("Tapando pantalla a guest");
                 this.glassPane.setVisible(true);
             }
 
             if (Memory.turnOf.equals("guest")) {
-                System.out.println("Destapando pantalla a guest");
                 this.glassPane.setVisible(false);
             }
         }
@@ -138,45 +148,51 @@ public class BaseBoard extends JFrame {
         }
     }
 
-    public boolean upperTriangular() {
+    private boolean upperTriangular() {
         int counter = 0;
+
         for (int i=0; i<3; i++) {
-            counter += items[i][i];
+            counter += this.items[i][i];
         }
         return (counter == 3);
     }
 
-    public boolean lowerTriangular() {
+    private boolean lowerTriangular() {
         int counter = 0;
-        for (int i=3; i>=0; i--) {
-            counter += items[i][i];
+        int j = 0;
+
+        for (int i=2; i>=0; i--) {
+            counter += this.items[j][i];
+            j++;
         }
         return (counter == 3);
     }
 
-    public JLabel indexA11() {
-        a11.setBackground(null);
-        a11.setBounds(100, 27, 85, 85);
+    public JLabel indexA00() {
+        JLabel a00 = new JLabel();
+        a00.setBackground(null);
+        a00.setBounds(100, 27, 85, 85);
+        a00.setName("A00");
 
-        a11.addMouseListener(new MouseListener() {
+        a00.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (!a11Pressed) {
+                if (!a00Pressed) {
                     glassPane.setVisible(true);
 
                     if (Memory.isServer) {
-                        a11.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("a11", "guest");
+                        a00.setIcon(Memory.hostSymbol);
+                        new TCPClientHost().sendMessage("A00", "guest");
 
                     } else {
-                        a11.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("a11", "host");
+                        a00.setIcon(Memory.guestSymbol);
+                        new TCPClientGuest().sendMessage("A00", "host");
                     }
-                    a11Pressed = true;
+                    a00Pressed = true;
                     items[0][0] = 1;
 
                     if (upperTriangular()) {
@@ -200,31 +216,33 @@ public class BaseBoard extends JFrame {
 
             }
         });
-        return a11;
+        return a00;
     }
 
-    public JLabel indexA12() {
-        a12.setBackground(null);
-        a12.setBounds(200, 27, 85, 85);
+    public JLabel indexA01() {
+        JLabel a01 = new JLabel();
+        a01.setBackground(null);
+        a01.setBounds(200, 27, 85, 85);
+        a01.setName("A01");
 
-        a12.addMouseListener(new MouseListener() {
+        a01.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (!a12Pressed) {
+                if (!a01Pressed) {
                     glassPane.setVisible(true);
 
                     if (Memory.isServer) {
-                        a12.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("a12", "guest");
+                        a01.setIcon(Memory.hostSymbol);
+                        new TCPClientHost().sendMessage("A01", "guest");
 
                     } else {
-                        a12.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("a12", "host");
+                        a01.setIcon(Memory.guestSymbol);
+                        new TCPClientGuest().sendMessage("A01", "host");
                     }
-                    a12Pressed = true;
+                    a01Pressed = true;
                     items[0][1] = 1;
 
                     if (upperTriangular()) {
@@ -248,32 +266,34 @@ public class BaseBoard extends JFrame {
 
             }
         });
-        return a12;
+        return a01;
     }
 
-    public JLabel indexA13() {
-        a13.setBackground(null);
-        a13.setBounds(300, 27, 85, 85);
+    public JLabel indexA02() {
+        JLabel a02 = new JLabel();
+        a02.setBackground(null);
+        a02.setBounds(300, 27, 85, 85);
+        a02.setName("A02");
 
-        a13.addMouseListener(new MouseListener() {
+        a02.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (!a13Pressed) {
+                if (!a02Pressed) {
                     glassPane.setVisible(true);
 
                     if (Memory.isServer) {
-                        a13.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("a13", "guest");
+                        a02.setIcon(Memory.hostSymbol);
+                        new TCPClientHost().sendMessage("A02", "guest");
 
                     } else {
-                        a13.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("a13", "host");
+                        a02.setIcon(Memory.guestSymbol);
+                        new TCPClientGuest().sendMessage("A02", "host");
                     }
-                    a13Pressed = true;
+                    a02Pressed = true;
                     items[0][2] = 1;
 
                     if (upperTriangular()) {
@@ -297,12 +317,65 @@ public class BaseBoard extends JFrame {
 
             }
         });
-        return a13;
+        return a02;
+    }
+
+    public JLabel indexA20() {
+        JLabel a20 = new JLabel();
+        a20.setBackground(null);
+        a20.setBounds(100, 129, 85, 85);
+        a20.setName("A20");
+
+        a20.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (!a20Pressed) {
+                    glassPane.setVisible(true);
+
+                    if (Memory.isServer) {
+                        a20.setIcon(Memory.hostSymbol);
+                        new TCPClientHost().sendMessage("A20", "guest");
+
+                    } else {
+                        a20.setIcon(Memory.guestSymbol);
+                        new TCPClientGuest().sendMessage("A20", "host");
+                    }
+                    a20Pressed = true;
+                    items[1][0] = 1;
+
+                    if (upperTriangular()) {
+                        System.out.println("You Win");
+                    }
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        return a20;
     }
 
     public JLabel indexA21() {
+        JLabel a21 = new JLabel();
         a21.setBackground(null);
-        a21.setBounds(100, 129, 85, 85);
+        a21.setBounds(200, 129, 85, 85);
+        a21.setName("A21");
 
         a21.addMouseListener(new MouseListener() {
             @Override
@@ -316,14 +389,14 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a21.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("a21", "guest");
+                        new TCPClientHost().sendMessage("A21", "guest");
 
                     } else {
                         a21.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("a21", "host");
+                        new TCPClientGuest().sendMessage("A21", "host");
                     }
                     a21Pressed = true;
-                    items[1][0] = 1;
+                    items[1][1] = 1;
 
                     if (upperTriangular()) {
                         System.out.println("You Win");
@@ -350,8 +423,10 @@ public class BaseBoard extends JFrame {
     }
 
     public JLabel indexA22() {
+        JLabel a22 = new JLabel();
         a22.setBackground(null);
-        a22.setBounds(200, 129, 85, 85);
+        a22.setBounds(300, 129, 85, 85);
+        a22.setName("A22");
 
         a22.addMouseListener(new MouseListener() {
             @Override
@@ -365,14 +440,14 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a22.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("a22", "guest");
+                        new TCPClientHost().sendMessage("A22", "guest");
 
                     } else {
                         a22.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("a22", "host");
+                        new TCPClientGuest().sendMessage("A22", "host");
                     }
                     a22Pressed = true;
-                    items[1][1] = 1;
+                    items[1][2] = 1;
 
                     if (upperTriangular()) {
                         System.out.println("You Win");
@@ -398,30 +473,32 @@ public class BaseBoard extends JFrame {
         return a22;
     }
 
-    public JLabel indexA23() {
-        a23.setBackground(null);
-        a23.setBounds(300, 129, 85, 85);
+    public JLabel indexA30() {
+        JLabel a30 = new JLabel();
+        a30.setBackground(null);
+        a30.setBounds(100, 232, 85, 82);
+        a30.setName("A30");
 
-        a23.addMouseListener(new MouseListener() {
+        a30.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (!a23Pressed) {
+                if (!a30Pressed) {
                     glassPane.setVisible(true);
 
                     if (Memory.isServer) {
-                        a23.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("a23", "guest");
+                        a30.setIcon(Memory.hostSymbol);
+                        new TCPClientHost().sendMessage("A30", "guest");
 
                     } else {
-                        a23.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("a23", "host");
+                        a30.setIcon(Memory.guestSymbol);
+                        new TCPClientGuest().sendMessage("A30", "host");
                     }
-                    a23Pressed = true;
-                    items[1][2] = 1;
+                    a30Pressed = true;
+                    items[2][0] = 1;
 
                     if (upperTriangular()) {
                         System.out.println("You Win");
@@ -444,12 +521,14 @@ public class BaseBoard extends JFrame {
 
             }
         });
-        return a23;
+        return a30;
     }
 
     public JLabel indexA31() {
+        JLabel a31 = new JLabel();
         a31.setBackground(null);
-        a31.setBounds(100, 232, 85, 82);
+        a31.setBounds(200, 232, 85, 82);
+        a31.setName("A31");
 
         a31.addMouseListener(new MouseListener() {
             @Override
@@ -463,14 +542,14 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a31.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("a31", "guest");
+                        new TCPClientHost().sendMessage("A31", "guest");
 
                     } else {
                         a31.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("a31", "host");
+                        new TCPClientGuest().sendMessage("A31", "host");
                     }
                     a31Pressed = true;
-                    items[2][0] = 1;
+                    items[2][1] = 1;
 
                     if (upperTriangular()) {
                         System.out.println("You Win");
@@ -497,8 +576,10 @@ public class BaseBoard extends JFrame {
     }
 
     public JLabel indexA32() {
+        JLabel a32 = new JLabel();
         a32.setBackground(null);
-        a32.setBounds(200, 232, 85, 82);
+        a32.setBounds(300, 232, 85, 82);
+        a32.setName("A32");
 
         a32.addMouseListener(new MouseListener() {
             @Override
@@ -512,62 +593,13 @@ public class BaseBoard extends JFrame {
 
                     if (Memory.isServer) {
                         a32.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("a32", "guest");
+                        new TCPClientHost().sendMessage("A32", "guest");
 
                     } else {
                         a32.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("a32", "host");
+                        new TCPClientGuest().sendMessage("A32", "host");
                     }
                     a32Pressed = true;
-                    items[2][1] = 1;
-
-                    if (upperTriangular()) {
-                        System.out.println("You Win");
-                    }
-                }
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        });
-        return a32;
-    }
-
-    public JLabel indexA33() {
-        a33.setBackground(null);
-        a33.setBounds(300, 232, 85, 82);
-
-        a33.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                if (!a33Pressed) {
-                    glassPane.setVisible(true);
-
-                    if (Memory.isServer) {
-                        a33.setIcon(Memory.hostSymbol);
-                        new TCPClientHost().sendMessage("a33", "guest");
-
-                    } else {
-                        a33.setIcon(Memory.guestSymbol);
-                        new TCPClientGuest().sendMessage("a33", "host");
-                    }
-                    a33Pressed = true;
                     items[2][2] = 1;
 
                     if (upperTriangular()) {
@@ -591,6 +623,6 @@ public class BaseBoard extends JFrame {
 
             }
         });
-        return a33;
+        return a32;
     }
 }

@@ -36,8 +36,6 @@ public class TCPServer extends Thread {
              */
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        } finally {
-            System.out.println("Running");
         }
     }
 }
@@ -82,8 +80,6 @@ class ClientHandler extends Thread {
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        } finally {
-            System.out.println("Server listening");
         }
     }
 
