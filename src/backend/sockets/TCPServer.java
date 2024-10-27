@@ -18,6 +18,10 @@ public class TCPServer extends Thread {
     @Override
     public void run() {
         try (ServerSocket serverSocket = new ServerSocket(Memory.hostPort)){
+            while (true) {
+                new ClientHandler(serverSocket.accept()).start();
+            }
+            /*
             if (!Memory.isAsync) {
                 while (true) {
                     new ClientHandler(serverSocket.accept()).dataHandler();
@@ -28,6 +32,8 @@ public class TCPServer extends Thread {
                     new ClientHandler(serverSocket.accept()).start();
                 }
             }
+
+             */
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } finally {
